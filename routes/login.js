@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db =  require('./db');
-
+const app = require('./app');
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -76,6 +76,3 @@ app.post('/register', (req, res) => {
 });
 
 // Jalankan server
-app.listen(port, () => {
-    console.log(`Server berjalan di http://localhost:${port}`);
-});
