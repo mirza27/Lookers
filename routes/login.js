@@ -7,15 +7,10 @@ const app = require('./app');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.set('view engine', 'ejs');
 // Halaman login
 app.get('/login', (req, res) => {
-    res.send(`
-    <form method="POST" action="/login">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-    `);
+    res.render("login.ejs");
 });
 
 // Proses login
@@ -48,45 +43,9 @@ app.get('/register', (req, res) => {
     `);
 });
 
-// Proses register
+// Halaman register
 app.get('/register', (req, res) => {
-    res.send(`
-        <form method="POST" action="/register">
-        <table>
-        <tr>
-          <td>
-            Id:
-            <input type="text" name="id" placeholder="Id" required/>
-            <br />
-            <br />
-            Username:
-            <input type="text" name="username" placeholder="Username" required/>
-            <br>
-            <br>
-            Email:
-            <input type="text" name="email" placeholder="Email" required/>
-            <br>
-            <br>
-            Pwd:
-            <input type="password" name="password" placeholder="Password" required/>
-            <br>
-            konfirmasi Pwd:
-            <input type="password" name="password" placeholder="Confirm Password" required/>
-            <br>
-            <br>
-            <label for="jenis">Regis as</label>
-            <select id="jenis" name="jenis">
-        <option value="employee">Employee</option>
-        <option value="jobseekers">Jobseekers</option>
-            </select>
-            <br>
-
-            <input type="submit" name="submit" value="SUBMIT"> </input>
-          </td>
-        </tr>
-      </table>
-        </form>
-    `);
+    res.render("register.ejs");
 });
 
 // Proses register
