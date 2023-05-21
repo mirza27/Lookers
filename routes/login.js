@@ -1,23 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db =  require('db');
+const db =  require('./db');
 
-//andra
-const express = require('express');
-const router = express.Router();
-const { Pool } = require('pg');
 
-const app = express();
-const port = 3000;
-
-// Konfigurasi koneksi PostgreSQL
-const pool = new Pool({
-    user: 'postgres',
-    host: 'containers-us-west-187.railway.app',
-    database: 'railway',
-    password: 'q1tXYJw2zY5aXZVh9NQW',
-    port: 7572,
-});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -38,7 +23,7 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     // Periksa kecocokan data login dengan data di database
-    pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
+    db.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
         if (err) {
             console.log(err);
             res.send('Terjadi kesalahan saat melakukan login.');
@@ -68,7 +53,7 @@ app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
     // Periksa apakah username sudah ada di database
-    pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
+    db.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
         if (err) {
             console.log(err);
             res.send('Terjadi kesalahan saat melakukan register.');
