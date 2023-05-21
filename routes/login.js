@@ -49,18 +49,64 @@ app.get('/register', (req, res) => {
 });
 
 // Proses register
+app.get('/register', (req, res) => {
+    res.send(`
+        <form method="POST" action="/register">
+        <table>
+        <tr>
+          <td>
+            Id:
+            <input type="text" name="id" placeholder="Id" required/>
+            <br />
+            <br />
+            Username:
+            <input type="text" name="username" placeholder="Username" required/>
+            <br>
+            <br>
+            Email:
+            <input type="text" name="email" placeholder="Email" required/>
+            <br>
+            <br>
+            Pwd:
+            <input type="password" name="password" placeholder="Password" required/>
+            <br>
+            konfirmasi Pwd:
+            <input type="password" name="password" placeholder="Confirm Password" required/>
+            <br>
+            <br>
+            <label for="jenis">Regis as</label>
+            <select id="jenis" name="jenis">
+        <option value="employee">Employee</option>
+        <option value="jobseekers">Jobseekers</option>
+            </select>
+            <br>
+
+            <input type="submit" name="submit" value="SUBMIT"> </input>
+          </td>
+        </tr>
+      </table>
+        </form>
+    `);
+});
+
+// Proses register
 app.post('/register', (req, res) => {
-    const { username, password } = req.body;
+    const { id, username, email, password, jenis } = req.body;
+    let isEmployee = false; // Variable to store the converted jenis value
+
+    if (jenis === 'employee') {
+        isEmployee = true;
+    }
 
     // Periksa apakah username sudah ada di database
-    db.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
+    pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
         if (err) {
             console.log(err);
             res.send('Terjadi kesalahan saat melakukan register.');
         } else {
             if (result.rowCount === 0) {
                 // Tambahkan user baru ke database
-                pool.query('INSERT INTO users VALUES ($1, $2)', [username, password], (err, result) => {
+                pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [id, username, email, password, isEmployee], (err, result) => {
                     if (err) {
                         console.log(err);
                         res.send('Terjadi kesalahan saat melakukan register.');
