@@ -1,31 +1,45 @@
-const express = require("express");
+const express = require('express');
+const router = express.Router();
 const app = express();
+const port = 3000;
 
-const pgp = require("pg-promise")();
-const connection = {
-  host: "containers-us-west-187.railway.app",
-  port: 7572,
-  database: "railway",
-  user: "postgres",
-  password: "q1tXYJw2zY5aXZVh9NQW",
-};
-const db = pgp(connection);
+app.set('view engine', 'ejs');
+
+const { Pool } = require('pg');
+
+// Configure the database connection parameters
+const pool = new Pool({
+    user: 'postgres',
+    host: 'containers-us-west-187.railway.app',
+    database: 'railway',
+    password: 'q1tXYJw2zY5aXZVh9NQW',
+    port: 7572,
+});
 
 (async () => {
   try {
-    const client = await db.connect();
-    console.log("Connected to database");
+    const client = await pool.connect();
+    console.log('Connected to database');
     //client.release();
   } catch (error) {
-    console.error("Error connecting to database:", error);
+    console.error('Error connecting to database:', error);
     process.exit(1); // Keluar dari aplikasi dengan status error
   }
 })();
 
-module.exports = db;
+app.use(express.static("public"));
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+const loginRouter = require("./routes/login");
+const homeRouter = require("./routes/home");
+
+app.use("/login", loginRouter);
+app.use("/home", homeRouter);
+
+module.exports = pool;
+
+// Jalankan server
+app.listen(port, () => {
+  console.log(`Server berjalan di http://localhost:${port}`);
 });
 
-module.export = app;
+module.exports = app;
