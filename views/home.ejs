@@ -3,7 +3,7 @@
 
 <head>
     <title>Carousel EJS</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
 </head>
 
 <body>
@@ -19,16 +19,6 @@
         </form>
     </nav>
 
-    <div id="carousel" class="carousel">
-        <% jobs.forEach((job)=> { %>
-            <div class="carousel-item">
-                <h3>
-                    <%= job.nama %>
-                </h3>
-            </div>
-            <% }); %>
-    </div>
-    
     <script src="/js/script.js"></script>
 </body>
 

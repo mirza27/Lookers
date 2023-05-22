@@ -9,16 +9,8 @@ app.use(express.json());
 
 // Halaman Home
 router.get('/', (req, res) => {
-    // Query untuk mengambil nilai dari kolom "nama" dalam tabel "job"
-    const query = 'SELECT tittle FROM jobs';
-    
-    // Melakukan query ke database
-    db.query(query, (err, results) => {
-        if (err) throw err;
+    res.render('home.ejs');
 
-        // Mengirimkan data hasil query ke template EJS
-        res.render('home', { jobs: results });
-    });
     
 });
 
