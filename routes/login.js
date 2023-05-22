@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+//const app = require('../app');
 const app = express();
-const db =  require('./db');
-const pool = require('./app');
+const db =  require('../db/db');
+
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: false }));
@@ -18,7 +19,7 @@ router.post('/', (req, res) => {
     const { username, password } = req.body;
 
     // Periksa kecocokan data login dengan data di database
-    pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
+    db.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password], (err, result) => {
         if (err) {
             console.log(err);
             res.send('Terjadi kesalahan saat melakukan login.');
@@ -47,7 +48,7 @@ router.post('/register', (req, res) => {
     }
 
     // Periksa apakah username sudah ada di database
-    pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
+    db.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
         if (err) {
             console.log(err);
             res.send('Terjadi kesalahan saat melakukan register.');

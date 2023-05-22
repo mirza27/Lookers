@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const app = express();
-const pool = require('./app');
+const db = require('../db/db');
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: false }));
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     const query = 'SELECT tittle FROM jobs';
     
     // Melakukan query ke database
-    pool.query(query, (err, results) => {
+    db.query(query, (err, results) => {
         if (err) throw err;
 
         // Mengirimkan data hasil query ke template EJS
@@ -33,7 +33,7 @@ router.get('/search', (req, res) => {
     // Menambahkan kondisi WHERE pada query untuk mencocokkan kolom "nama" dengan nilai "search"
     query += ` WHERE tittle LIKE '%${search}%'`;
     // Melakukan query ke database
-    pool.query(query, (err, results) => {
+    db.query(query, (err, results) => {
         if (err) throw err;
 
         // Mengirimkan data hasil query ke template EJS
