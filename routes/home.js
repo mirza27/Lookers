@@ -1,0 +1,45 @@
+const express = require('express');
+const router = express.Router();
+const app = express();
+const pool = require('./app');
+app.set('view engine', 'ejs');
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Halaman Home
+router.get('/', (req, res) => {
+    // Query untuk mengambil nilai dari kolom "nama" dalam tabel "job"
+    const query = 'SELECT tittle FROM jobs';
+    
+    // Melakukan query ke database
+    pool.query(query, (err, results) => {
+        if (err) throw err;
+
+        // Mengirimkan data hasil query ke template EJS
+        res.render('home', { jobs: results });
+    });
+    
+});
+
+// Halaman Search
+router.get('/search', (req, res) => {
+    // Query untuk mengambil nilai dari kolom "nama" dalam tabel "job"
+    let query = 'SELECT tittle FROM jobs';
+    
+    // Mengambil nilai dari parameter "search" pada query string
+    const search = req.query.search || '';
+
+    // Menambahkan kondisi WHERE pada query untuk mencocokkan kolom "nama" dengan nilai "search"
+    query += ` WHERE tittle LIKE '%${search}%'`;
+    // Melakukan query ke database
+    pool.query(query, (err, results) => {
+        if (err) throw err;
+
+        // Mengirimkan data hasil query ke template EJS
+        res.render('home', { jobs: results });
+    });
+    
+});
+
+module.exports = router;
