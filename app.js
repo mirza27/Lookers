@@ -10,8 +10,10 @@ app.use(express.static("public"));
 
 const loginRouter = require("./routes/login");
 const homeRouter = require("./routes/home");
+const regisRouter = require("./routes/register");
 
 app.use("/login", loginRouter);
+app.use("/register", regisRouter);
 app.use("/home", homeRouter);
 
 

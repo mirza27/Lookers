@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-//const app = require('../app');
 const app = express();
 const db =  require('../db/db');
 
@@ -28,43 +27,6 @@ router.post('/', (req, res) => {
                 res.send('Login berhasil!');
             } else {
                 res.send('Username atau password salah.');
-            }
-        }
-    });
-});
-
-// Halaman register
-router.get('/register', (req, res) => {
-    res.render("register.ejs");
-});
-
-// Proses register
-router.post('/register', (req, res) => {
-    const { id, username, email, password, jenis } = req.body;
-    let isEmployee = false; // Variable to store the converted jenis value
-
-    if (jenis === 'employee') {
-        isEmployee = true;
-    }
-
-    // Periksa apakah username sudah ada di database
-    db.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
-        if (err) {
-            console.log(err);
-            res.send('Terjadi kesalahan saat melakukan register.');
-        } else {
-            if (result.rowCount === 0) {
-                // Tambahkan user baru ke database
-                pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [id, username, email, password, isEmployee], (err, result) => {
-                    if (err) {
-                        console.log(err);
-                        res.send('Terjadi kesalahan saat melakukan register.');
-                    } else {
-                        res.send('Registrasi berhasil!');
-                    }
-                });
-            } else {
-                res.send('Username sudah terdaftar.');
             }
         }
     });
