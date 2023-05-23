@@ -33,7 +33,7 @@ router.post('/', async(req, res) => {
         // Simpan ID pengguna dalam sesi
         req.session.isLoggedIn = true; // Menandai bahwa pengguna telah berhasil login
         req.session.userId = user.user_id;
-        req.session.userName = user.user_name; // 
+        req.session.userName = user.username; // 
         res.send('Anda Telah masuk  .');
     
       } catch (err) {
