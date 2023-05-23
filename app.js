@@ -1,7 +1,8 @@
 const express = require('express');
-const router = express.Router();
 const db = require('./db/db');
 const app = express();
+const userHandler = require('./routes/userHandler')
+const homeHandler = require('./routes/homeHandler');
 const port = 3000;
 
 // SET ENGINE EJS
@@ -24,14 +25,14 @@ app.use(session({
 app.use(cookieParser());
 
 
-// AMBIL PATH ROUTING
-const loginRouter = require("./routes/login");
-const homeRouter = require("./routes/home");
-const regisRouter = require("./routes/register");
+// PATH ENDPOINT
+app.get("/login", userHandler.userLogin); 
+app.post("/login", userHandler.userLogin);
+app.get("/logout", userHandler.userLogout);
+app.get("/register", userHandler.userRegister);
+app.post("/register", userHandler.userRegister);
 
-app.use("/login", loginRouter);
-app.use("/register", regisRouter);
-app.use("/home", homeRouter);
+app.get("/homeJS", homeHandler.homeJS);
 
 
 // Jalankan server
