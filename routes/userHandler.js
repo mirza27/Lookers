@@ -66,15 +66,15 @@ const userRegister = (req, res) => {
     res.render('register.ejs');
   } 
   else if (req.method === 'POST'){
-    const { id, username, email, password, jenis } = req.body;
+    const { email, password } = req.body;
     let isEmployee = false; // Variable to store the converted jenis value
 
-    if (jenis === 'employee') {
-        isEmployee = true;
-    }
+    //if (jenis === 'employee')
+        //isEmployee = true;
 
     // Periksa apakah username sudah ada di database
-    const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    //const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    let cek = false;
 
         if (cek) {
           res.redirect('/register');
@@ -84,7 +84,7 @@ const userRegister = (req, res) => {
         }else{
             try{
                 // Tambahkan user baru ke database
-                const insert = await db.oneOrNone('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [id, username, email, password, isEmployee]);
+                const insert = await db.oneOrNone('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, isEmployee]);
 
                 if(insert){
                   setTimeout(() => {
