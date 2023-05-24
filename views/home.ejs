@@ -20,13 +20,17 @@
     </nav>
 
     <% jobs.forEach(function(job) { %>
-      <div class="card">
-        <h3><%= job.name %></h3>
-        <p><strong>ID:</strong> <%= job.id %></p>
-      </div>
-    <% }); %>
-    
-    <script src="/js/script.js"></script>
+        <div class="card">
+            <h3>
+                <%= job.tittle %>
+            </h3>
+            <p><strong>Description:</strong>
+                <%= job.desc %>
+            </p>
+        </div>
+        <% }); %>
+
+            <script src="/js/script.js"></script>
 </body>
 
 </html>
