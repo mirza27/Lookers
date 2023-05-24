@@ -41,6 +41,10 @@ app.get("/register/js/:id", userHandler.regisJS);
 app.post("/register/js/:id", userHandler.regisJS);
 
 app.get("/home", homeHandler.home);
+app.post("/home", homeHandler.home);
+
+app.get("/search", homeHandler.search);
+app.post("/search", homeHandler.search);
 
 
 // Jalankan server
