@@ -18,8 +18,9 @@
   <% } else { %>
     <% applicants.forEach(function(applicant) { %>
       <div class="applicant">
-        <h3><%= applicant.employerid %></h3>
-        <p><strong>ID Pelamar:</strong> <%= applicant.jobseekerid %></p>
+        <p><strong>ID Pelamar:</strong> <%= applicant.jobseeker_Id %></p>
+        <p><strong>Job:</strong> <%= applicant.job_Id %></p>
+        <p><strong>Status:</strong> <%= applicant.status %></p>
       </div>
     <% }); %>
   <% } %>
