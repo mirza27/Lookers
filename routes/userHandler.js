@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('../db/db');
+
 const pgp = db.$config.pgp;
 
 // UNTUK LOGIN
@@ -64,23 +65,27 @@ const userRegister = async (req, res) => {
     // Periksa apakah username sudah ada di database
     const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
     if (cek) {
-      res.redirect('/register');
       res.send(`
               <script>alert('Username sudah terdaftar.');</script>
             `);
+      res.redirect('/register');
     }else{
       try{
         // Tambahkan user baru ke database
         await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [username, email, password, role]);
         const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
-
-
+       
+        var id = parseInt(user_id.user_id); // id sebagai param
+        
+        // generate url dengan param
         if(role == true){ // jika sebagai hrd
-          res.redirect('/register/hrd/${user_id}');
+          var pathredirect = '/register/hrd' + id;
         }else{ // jika sebagai jobseeker
-          res.redirect('/register/js/${user_id}');
+          var pathredirect = '/register/js' + id;
         }
-
+        
+        res.redirect(pathredirect);
+        
       }catch (err){
         console.log(err);
         return res.send(`
@@ -93,21 +98,21 @@ const userRegister = async (req, res) => {
 
 // REGISTRASI SEBAGAI JOBSEEKER
 const regisJS = async (req, res) => {
-  const user_id = req.params.user_id; // ambil param
+const id = req.params.id; // ambil param
 
   if(req.method === 'GET'){
     res.render('regisJobseeker.ejs');
 
   }else if(req.method === 'POST'){
-    console.log("paramnya :",user_id);
+
     const { nama, contact,address, experience, gender, education, exp} = req.body;
     
     let genders = false;
     if (gender === 'perempuan')
         genders = true;
 
-    var data_js = [user_id, nama, contact, address, gender];
-    var data_jsd = [user_id, experience, education, exp];
+    var data_js = [id, nama, contact, address, gender];
+    var data_jsd = [id, experience, education, exp];
 
     try{
       // insert data ke tabel jobseekers dan jobseeker_detail
@@ -132,16 +137,14 @@ const regisJS = async (req, res) => {
 
 // REGISTRASI SEBAGAI HRD
 const regisHRD = async (req, res) => {
-  const user_id = req.params.user_id; // ambil param
-
+const id = req.params.id; // ambil param
   if(req.method === 'GET'){
     res.render('regisHRD.ejs');
 
   }else if(req.method === 'POST'){
-    console.log("paramnya :",user_id);
     const {companyName, contact, address, companyDesc} = req.body;
 
-    var data_hrd = [user_id,nama, contact, address, gender];
+    var data_hrd = [id,nama, contact, address, gender];
 
     try{
       // insert data ke tabel jobseekers dan jobseeker_detail

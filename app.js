@@ -20,7 +20,7 @@ app.use(session({
   secret: 'Lookers123', // key utama session
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge:1000 * 60 * 60 * 24}
+  cookie: { maxAge:1000 * 60 * 60 } // expire 1 jam
 }));
 app.use(cookieParser());
 
@@ -34,11 +34,11 @@ app.get("/logout", userHandler.userLogout);
 app.get("/register", userHandler.userRegister);
 app.post("/register", userHandler.userRegister);
 
-app.get("/register/hrd/:user_id", userHandler.regisHRD);
-app.post("/register/hrd/:user_id", userHandler.regisHRD);
+app.get("/register/hrd:id", userHandler.regisHRD);
+app.post("/register/hrd:id", userHandler.regisHRD);
 
-app.get("/register/js/:user_id", userHandler.regisJS);
-app.post("/register/js/:user_id", userHandler.regisJS);
+app.get("/register/js:id", userHandler.regisJS);
+app.post("/register/js:id", userHandler.regisJS);
 
 app.get("/home", homeHandler.home);
 
