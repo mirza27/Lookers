@@ -73,31 +73,20 @@ const home = async (req, res) => {
     }
 
   }
+}
 
+const inbox = async (req, res) => {
+  try {
+    // Menjalankan query untuk mendapatkan daftar pelamar
+    const query = 'SELECT * FROM applicants';
+    const { rows } = await pool.query(query);
 
-
-// Halaman Search
-router.get('/search', async (req, res) => {
-
-
-    // Query untuk mengambil nilai dari kolom "nama" dalam tabel "job"
-    let query = 'SELECT tittle FROM jobs';
-    
-    // Mengambil nilai dari parameter "search" pada query string
-    const search = req.query.search || '';
-
-    // Menambahkan kondisi WHERE pada query untuk mencocokkan kolom "nama" dengan nilai "search"
-    query += ` WHERE tittle LIKE '%${search}%'`;
-    // Melakukan query ke database
-    db.query(query, (err, results) => {
-        if (err) throw err;
-
-        // Mengirimkan data hasil query ke template EJS
-        res.render('home', { jobs: results });
-    });
-    
-});
-
+    res.render('inbox', { applicants: rows });
+  } catch (err) {
+    console.error('Error dalam melakukan query: ', err);
+    res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
+  }
+}
 module.exports = {
   home
 }
