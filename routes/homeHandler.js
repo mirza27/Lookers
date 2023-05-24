@@ -5,17 +5,27 @@ const db = require('../db/db');
 app.set('view engine', 'ejs');
 
 
-const homeJS = async (req, res) => {
-  if (req.method === 'GET' && !req.session.roleHRD){
-    if (!req.session.userId) {
-      return res.redirect('/login'); // jika belum login, redirect ke halaman login
-    } else {
+const home = async (req, res) => {
+  if (req.method === 'GET' && !req.session.userId) {
+    return res.redirect('/login'); // jika belum login, redirect ke halaman login
+
+  } else{
+    // JIKA SEBAGAI JOB SEEKER
+    if (req.method === 'GET' && !req.session.roleHRD){  // load home sebagai jobseeker
       console.log(req.session.userId); // cetak id siapa yang login.
       res.render('home.ejs'); // render tampilan home.ejs jika sudah login
+
+    } else if (req.method === 'POST' && !req.session.roleHRD){
+
     }
-  } 
-  else if (req.method === 'POST' && !req.session.roleHRD){
-      // gtw iki engkok gawe piye
+
+    // JIKA SEBAGAI HRD
+    if (req.method === 'GET' && req.session.roleHRD){ // load home sebagai hrd
+
+    }else if (req.method === 'POST' && req.session.roleHRD){
+
+    }
+
   }
 }
 
@@ -43,5 +53,5 @@ router.get('/search', async (req, res) => {
 });
 
 module.exports = {
-  homeJS
+  home
 }

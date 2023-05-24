@@ -32,7 +32,7 @@ app.get("/logout", userHandler.userLogout);
 app.get("/register", userHandler.userRegister);
 app.post("/register", userHandler.userRegister);
 
-app.get("/homeJS", homeHandler.homeJS);
+app.get("/home", homeHandler.home);
 
 
 // Jalankan server

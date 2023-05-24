@@ -42,13 +42,14 @@ const userLogin = async (req, res) => {
 
         console.log("login berhasil sebagai", req.session.userName);
         
-
+        res.redirect('/home'); // jika jobseeker
+        /*
         if (req.session.roleHRD){
           res.redirect('/homeHRD'); // jika hrd
         } else{
-          res.redirect('/homeJS'); // jika jobseeker
+          res.redirect('/home'); // jika jobseeker
         }
-        
+        */
       } catch (err) {
         console.error(err);
         res.send('Terjadi kesalahan');
