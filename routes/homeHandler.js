@@ -6,10 +6,10 @@ app.set('view engine', 'ejs');
 
 
 const home = async (req, res) => {
-  //if (req.method === 'GET' && !req.session.userId) {
-    //return res.redirect('/login'); // jika belum login, redirect ke halaman login
+  if (req.method === 'GET' && !req.session.userId) {
+    return res.redirect('/login'); // jika belum login, redirect ke halaman login
 
-  //} else{
+  } else{
     // JIKA SEBAGAI JOB SEEKER
     if (req.method === 'GET' && !req.session.roleHRD){  // load home sebagai jobseeker
       console.log(req.session.userId); // cetak id siapa yang login.
@@ -46,7 +46,7 @@ const home = async (req, res) => {
     }
 
   }
-  //}
+}
 
 const search  = async (req, res) => {
   if (req.method==='GET'){
