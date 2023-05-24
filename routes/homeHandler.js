@@ -6,10 +6,10 @@ app.set('view engine', 'ejs');
 
 
 const home = async (req, res) => {
-  if (req.method === 'GET' && !req.session.userId) {
-    return res.redirect('/login'); // jika belum login, redirect ke halaman login
+  //if (req.method === 'GET' && !req.session.userId) {
+    //return res.redirect('/login'); // jika belum login, redirect ke halaman login
 
-  } else{
+  //} else{
     // JIKA SEBAGAI JOB SEEKER
     if (req.method === 'GET' && !req.session.roleHRD){  // load home sebagai jobseeker
       console.log(req.session.userId); // cetak id siapa yang login.
@@ -46,7 +46,7 @@ const home = async (req, res) => {
     }
 
   }
-}
+  //}
 
 const search  = async (req, res) => {
   if (req.method==='GET'){
@@ -83,16 +83,22 @@ const search  = async (req, res) => {
 }
 
 const inbox = async (req, res) => {
-  try {
-    // Menjalankan query untuk mendapatkan daftar pelamar
-    const query = 'SELECT * FROM applicants';
-    const { rows } = await pool.query(query);
-
-    res.render('inbox', { applicants: rows });
-  } catch (err) {
-    console.error('Error dalam melakukan query: ', err);
-    res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
-  }
+  if(req.method==='GET' && req.session.roleHRD){
+    try {
+      // Menjalankan query untuk mendapatkan daftar pelamar
+      const query = 'SELECT * FROM applications';
+      const { rows } = await db.query(query);
+  
+      res.render('inbox.ejs', { applicants: rows });
+    } catch (err) {
+      console.error('Error dalam melakukan query: ', err);
+      res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
+    }
+  }else if(req.method==='POST' && req.session.roleHRD){
+    const status = req.body.status;
+    await db.query('UPDATE applications SET status = ${status} WHERE application_Id = ${rows.application_Id}');    
+    res.render('inbox.ejs');
+  }  
 }
 
 module.exports = {
