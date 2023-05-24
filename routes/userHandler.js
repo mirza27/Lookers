@@ -45,13 +45,6 @@ const userLogin = async (req, res) => {
         console.log("login berhasil sebagai", req.session.userName);
         
         res.redirect('/home'); // jika jobseeker
-        /*
-        if (req.session.roleHRD){
-          res.redirect('/homeHRD'); // jika hrd
-        } else{
-          res.redirect('/home'); // jika jobseeker
-        }
-        */
         
       } catch (err) {
         console.error(err);
@@ -78,12 +71,9 @@ const userRegister = async (req, res) => {
     }else{
       try{
         // Tambahkan user baru ke database
-        await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, role]);
+        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [username, email, password, role]);
         const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
 
-        setTimeout(() => {
-          res.send('Registrasi berhasil!');
-        }, 1000);
 
         if(role == true){ // jika sebagai hrd
           res.redirect('/register/hrd/${user_id}');
@@ -128,8 +118,7 @@ const regisJS = async (req, res) => {
       await db.query(sql, 
       [data_js, data_jsd]);
 
-      setTimeout(() => {res.send('Registrasi berhasil!');}, 1000);
-        res.redirect('/login');
+
     }
     
     catch (err){ // jika ada error
@@ -162,8 +151,6 @@ const regisHRD = async (req, res) => {
       await db.query(sql, 
       [data_js]);
 
-      setTimeout(() => {res.send('Registrasi berhasil!');}, 1000);
-        res.redirect('/login');
     }
     
     catch (err){ // jika ada error

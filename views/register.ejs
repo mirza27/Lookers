@@ -150,15 +150,21 @@
           <input type="text" name="username" placeholder="Username" id="username" />
           
           <label for="username">Email</label>
-          <input type="text" name="email" placeholder="Email" id="username" />
+          <input type="text" name="email" placeholder="Email" id="email" />
 
           <label for="password">Password</label>
           <input type="password" name="password" placeholder="Password" id="password" />
 
-          <label for="password">Konfirmasi Password</label>
-          <input type="password" placeholder="Password" id="password" />
+          <label for="confirm-password">Konfirmasi Password</label>
+          <input type="password" placeholder="Konfirmasi Password" id="confirm-password" />
 
-          <input type="submit">Log In</input>
+          <label for="user-type">Pilih tipe pengguna:</label>
+          <input type="radio" name="role" value="true" id="user-type-hrd" />
+          <label for="user-type-hrd">HRD</label>
+          <input type="radio" name="role" value="false" id="user-type-jobseeker" />
+          <label for="user-type-jobseeker">Jobseeker</label>
+
+          <input type="submit" value="Register" />
           <div class="social"></div>
         </form>
       </body>
