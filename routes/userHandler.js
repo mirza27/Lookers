@@ -66,69 +66,111 @@ const userRegister = async (req, res) => {
     res.render('register.ejs');
   } 
   else if (req.method === 'POST'){
-    const { username, email, password } = req.body;
-    let isEmployee = false; // Variable to store the converted jenis value
-
-    //if (jenis === 'employee')
-        //isEmployee = true;
+    const { username, email, password, role } = req.body;
 
     // Periksa apakah username sudah ada di database
     const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    if (cek) {
+      res.redirect('/register');
+      res.send(`
+              <script>alert('Username sudah terdaftar.');</script>
+            `);
+    }else{
+      try{
+        // Tambahkan user baru ke database
+        await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, isEmployee]);
+        const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
 
-        if (cek) {
-          res.redirect('/register');
-          res.send(`
-                  <script>alert('Username sudah terdaftar.');</script>
-                `);
-        }else{
-            try{
-                // Tambahkan user baru ke database
-                await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, isEmployee]);
-                const param = await db.oneOrNone('SELECT userId users WHERE ($1)', [username]);
-              
-                
-                  setTimeout(() => {
-                    res.send('Registrasi berhasil!');
-                  }, 1000);
-                    res.redirect('/register/');
-                
-            }catch {
-              console.log(err);
-              return res.send(`
-                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
-                        `);
-            } 
+        setTimeout(() => {
+          res.send('Registrasi berhasil!');
+        }, 1000);
+
+        if(role == true){ // jika sebagai hrd
+          res.redirect('/register/hrd/${user_id}');
+        }else{ // jika sebagai jobseeker
+          res.redirect('/register/js/${user_id}');
         }
-    
-    };
-  }
 
+      }catch {
+        console.log(err);
+        return res.send(`
+                    <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+                  `);
+      } 
+    }
+  };
+}
+
+// REGISTRASI SEBAGAI JOBSEEKER
 const regisJS = async (req, res) => {
-  if(req.method === 'GET'){
-    res.render('regisHRD.ejs');
-  }else if(req.method === 'POST'){
-    const { nama, contact, exp, gender, education } = req.body;
-    let genders = false;
+  const user_id = req.params.user_id; // ambil param
 
+  if(req.method === 'GET'){
+    res.render('regisJobseeker.ejs');
+
+  }else if(req.method === 'POST'){
+    const { nama, contact,address, experience, gender, education, exp} = req.body;
+    
+    let genders = false;
     if (gender === 'perempuan')
         genders = true;
 
-    try{
-      await db.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [nama, contact, address, genders]);
+    var data_js = [user_id, nama, contact, address, gender];
+    var data_jsd = [user_id, experience, education, exp];
 
-      setTimeout(() => {
-                    res.send('Registrasi berhasil!');
-                  }, 1000);
-                    res.redirect('/login');
-      
+    try{
+      // insert data ke tabel jobseekers dan jobseeker_detail
+      var sql = `
+      INSERT INTO jobseekers VALUES (?);
+      INSERT INTO jobseekers_detail VALUES (?);
+      `
+      await db.query(sql, 
+      [data_js, data_jsd]);
+
+      setTimeout(() => {res.send('Registrasi berhasil!');}, 1000);
+        res.redirect('/login');
     }
     
-    catch{
-                    res.redirect('/register');
-                    res.send(`
-                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
-                        `);
-                }
+    catch{ // jika ada error
+      res.redirect('/register');
+      res.send(`
+            <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+          `);
+    }
+  }
+}
+
+// REGISTRASI SEBAGAI HRD
+const regisHRD = async (req, res) => {
+  const user_id = req.params.user_id; // ambil param
+
+  if(req.method === 'GET'){
+    res.render('regisHRD.ejs');
+
+  }else if(req.method === 'POST'){
+    const {companyName, contact, address, companyDesc} = req.body;
+
+    var data_hrd = [user_id,nama, contact, address, gender];
+
+    try{
+      // insert data ke tabel jobseekers dan jobseeker_detail
+      var sql = `
+      INSERT INTO employers VALUES (?);
+      `
+      await db.query(sql, 
+      [data_js]);
+
+      setTimeout(() => {res.send('Registrasi berhasil!');}, 1000);
+        res.redirect('/login');
+    }
+    
+    catch{ // jika ada error
+      res.redirect('/register');
+      res.send(`
+            <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+          `);
+    }
+  }
 }
 
 // UNTUK LOGOUT
@@ -147,5 +189,7 @@ const userLogout = async (req, res) => {
 module.exports = {
   userLogin,
   userLogout,
-  userRegister
+  userRegister,
+  regisJS,
+  regisHRD
 }

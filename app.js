@@ -28,9 +28,17 @@ app.use(cookieParser());
 // PATH ENDPOINT
 app.get("/login", userHandler.userLogin); 
 app.post("/login", userHandler.userLogin);
+
 app.get("/logout", userHandler.userLogout);
+
 app.get("/register", userHandler.userRegister);
 app.post("/register", userHandler.userRegister);
+
+app.get("/register/hrd/:user_id", userHandler.regisHRD);
+app.post("/register/hrd/:user_id", userHandler.regisHRD);
+
+app.get("/register/js/:user_id", userHandler.regisJS);
+app.post("/register/js/:user_id", userHandler.regisJS);
 
 app.get("/home", homeHandler.home);
 
