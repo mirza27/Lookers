@@ -13,7 +13,17 @@ const home = async (req, res) => {
     // JIKA SEBAGAI JOB SEEKER
     if (req.method === 'GET' && !req.session.roleHRD){  // load home sebagai jobseeker
       console.log(req.session.userId); // cetak id siapa yang login.
-      res.render('home.ejs'); // render tampilan home.ejs jika sudah login
+      try {
+        // Lakukan query ke database untuk mendapatkan data card
+        const jobs = await db.any('SELECT * FROM jobs');
+
+        console.log(jobs); //tes
+        // Render file EJS 'cards.ejs' dan kirimkan data dari query
+        res.render('home.ejs', { jobs: jobs });
+      } catch (err) {
+        console.error('Error dalam melakukan query: ', err);
+        res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
+      }
 
     } else if (req.method === 'POST' && !req.session.roleHRD){
       try {
@@ -40,12 +50,20 @@ const home = async (req, res) => {
     res.status(500).json({ error: 'Terjadi kesalahan saat melakukan query' });
   }
       }
-    }
-
+    
     // JIKA SEBAGAI HRD
     if (req.method === 'GET' && req.session.roleHRD){ // load home sebagai hrd
       console.log(req.session.userId); // cetak id siapa yang login.
-      res.render('home.ejs'); // render tampilan home.ejs jika sudah login
+      try {
+        // Lakukan query ke database untuk mendapatkan data jobs
+        const jobs = await db.any('SELECT * FROM jobs');
+
+        // Render file EJS 'home.ejs' dan kirimkan data dari query
+        res.render('home.ejs', { jobs: jobs });
+      } catch (err) {
+        console.error('Error dalam melakukan query: ', err);
+        res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
+      }
     }else if (req.method === 'POST' && req.session.roleHRD){
       try {
     const searchTerm = req.query.keyword; // Kata yang diinputkan
@@ -73,7 +91,7 @@ const home = async (req, res) => {
     }
 
   }
-
+  }
 
 const inbox = async (req, res) => {
   try {
