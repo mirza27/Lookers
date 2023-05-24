@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daftar Pelamar</title>
+  <style>
+    .applicant {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Daftar Pelamar</h1>
+  <% if (applicants.length === 0) { %>
+    <p>Tidak ada pelamar saat ini.</p>
+  <% } else { %>
+    <% applicants.forEach(function(applicant) { %>
+      <div class="applicant">
+        <h3><%= applicant.employerid %></h3>
+        <p><strong>ID Pelamar:</strong> <%= applicant.jobseekerid %></p>
+      </div>
+    <% }); %>
+  <% } %>
+</body>
+</html>
