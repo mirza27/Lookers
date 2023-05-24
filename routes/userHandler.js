@@ -61,7 +61,7 @@ const userLogin = async (req, res) => {
 }
 
 // UNTUK REGISTRASI
-const userRegister = (req, res) => {
+const userRegister = async (req, res) => {
   if (req.method === 'GET'){
     res.render('register.ejs');
   } 
