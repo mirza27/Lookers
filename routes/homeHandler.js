@@ -73,7 +73,7 @@ const home = async (req, res) => {
     }
 
   }
-}
+
 
 
 // Halaman Search

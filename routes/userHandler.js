@@ -78,7 +78,7 @@ const userRegister = async (req, res) => {
     }else{
       try{
         // Tambahkan user baru ke database
-        await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, isEmployee]);
+        await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, role]);
         const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
 
         setTimeout(() => {
@@ -91,7 +91,7 @@ const userRegister = async (req, res) => {
           res.redirect('/register/js/${user_id}');
         }
 
-      }catch {
+      }catch (err){
         console.log(err);
         return res.send(`
                     <script>alert('Terjadi kesalahan saat melakukan register.');</script>
@@ -109,6 +109,7 @@ const regisJS = async (req, res) => {
     res.render('regisJobseeker.ejs');
 
   }else if(req.method === 'POST'){
+    console.log("paramnya :",user_id);
     const { nama, contact,address, experience, gender, education, exp} = req.body;
     
     let genders = false;
@@ -131,7 +132,7 @@ const regisJS = async (req, res) => {
         res.redirect('/login');
     }
     
-    catch{ // jika ada error
+    catch (err){ // jika ada error
       res.redirect('/register');
       res.send(`
             <script>alert('Terjadi kesalahan saat melakukan register.');</script>
@@ -148,6 +149,7 @@ const regisHRD = async (req, res) => {
     res.render('regisHRD.ejs');
 
   }else if(req.method === 'POST'){
+    console.log("paramnya :",user_id);
     const {companyName, contact, address, companyDesc} = req.body;
 
     var data_hrd = [user_id,nama, contact, address, gender];
@@ -164,7 +166,7 @@ const regisHRD = async (req, res) => {
         res.redirect('/login');
     }
     
-    catch{ // jika ada error
+    catch (err){ // jika ada error
       res.redirect('/register');
       res.send(`
             <script>alert('Terjadi kesalahan saat melakukan register.');</script>
