@@ -17,7 +17,9 @@ const userLogin = async (req, res) => {
 
         // Jika pengguna tidak ditemukan
         if (!user) {
-          return res.send('Username atau password salah!');
+          return res.send(`
+                  <script>alert('Username atau Password salah!');</script>
+                `);
         }
     
         // Verifikasi password
@@ -25,7 +27,9 @@ const userLogin = async (req, res) => {
 
         // Jika password tidak valid
         if (!isPasswordValid) {
-          return res.send('Username atau password salah!');
+          return res.send(`
+                  <script>alert('Username atau Password salah!');</script>
+                `);
         }
         
         console.log(user);
