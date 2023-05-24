@@ -16,7 +16,21 @@ const home = async (req, res) => {
       res.render('home.ejs'); // render tampilan home.ejs jika sudah login
 
     } else if (req.method === 'POST' && !req.session.roleHRD){
+      const searchTerm = req.body.search; // Kata yang diinputkan
 
+      const search = await db.oneOrNone(`
+        SELECT * FROM jobs
+        WHERE name LIKE '%${searchTerm}%'
+      `);
+
+      if(search){
+        
+      }else{
+        //redirect ke bagian search
+        res.send(`
+              <script>alert('Data tidak ditemukan!');</script>
+            `);
+      }
     }
 
     // JIKA SEBAGAI HRD
