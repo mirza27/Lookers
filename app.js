@@ -34,11 +34,11 @@ app.get("/logout", userHandler.userLogout);
 app.get("/register", userHandler.userRegister);
 app.post("/register", userHandler.userRegister);
 
-app.get("/register/hrd:id", userHandler.regisHRD);
-app.post("/register/hrd:id", userHandler.regisHRD);
+app.get("/register/hrd/:id", userHandler.regisHRD);
+app.post("/register/hrd/:id", userHandler.regisHRD);
 
-app.get("/register/js:id", userHandler.regisJS);
-app.post("/register/js:id", userHandler.regisJS);
+app.get("/register/js/:id", userHandler.regisJS);
+app.post("/register/js/:id", userHandler.regisJS);
 
 app.get("/home", homeHandler.home);
 
