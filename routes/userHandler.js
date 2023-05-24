@@ -17,7 +17,8 @@ const userLogin = async (req, res) => {
 
         // Jika pengguna tidak ditemukan
         if (!user) {
-          return res.send(`
+          res.redirect('/login');
+          res.send(`
                   <script>alert('Username atau Password salah!');</script>
                 `);
         }
@@ -27,7 +28,8 @@ const userLogin = async (req, res) => {
 
         // Jika password tidak valid
         if (!isPasswordValid) {
-          return res.send(`
+          res.redirect('/login');
+          res.send(`
                   <script>alert('Username atau Password salah!');</script>
                 `);
         }
@@ -50,6 +52,7 @@ const userLogin = async (req, res) => {
           res.redirect('/home'); // jika jobseeker
         }
         */
+        
       } catch (err) {
         console.error(err);
         res.send('Terjadi kesalahan');
@@ -71,28 +74,40 @@ const userRegister = (req, res) => {
     }
 
     // Periksa apakah username sudah ada di database
-    db.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
-        if (err) {
-            console.log(err);
-            res.send('Terjadi kesalahan saat melakukan register.');
-        } else {
-            if (result.rowCount === 0) {
+    const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (cek) {
+          res.redirect('/register');
+          res.send(`
+                  <script>alert('Username sudah terdaftar.');</script>
+                `);
+        }else{
+            try{
                 // Tambahkan user baru ke database
-                pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [id, username, email, password, isEmployee], (err, result) => {
-                    if (err) {
-                        console.log(err);
-                        res.send('Terjadi kesalahan saat melakukan register.');
-                    } else {
-                        res.send('Registrasi berhasil!');
-                    }
-                });
-            } else {
-                res.send('Username sudah terdaftar.');
-            }
+                const insert = await db.oneOrNone('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [id, username, email, password, isEmployee]);
+
+                if(insert){
+                  setTimeout(() => {
+                    res.send('Registrasi berhasil!');
+                  }, 1000);
+                    res.redirect('/login');
+                }else{
+                    res.redirect('/register');
+                    res.send(`
+                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+                        `);
+                }
+                
+            }catch {
+              console.log(err);
+              return res.send(`
+                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+                        `);
+            } 
         }
-    });
+    
+    };
   }
-}
 
 // UNTUK LOGOUT
 const userLogout = async (req, res) => {
