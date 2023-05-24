@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Carousel EJS</title>
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <form action="/search" method="POST">
+            <input type="text" name="search" placeholder="Search by name">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+    <% if(jobs.length<=0){ %>
+    <p> Data tidak ditemukan! </p>
+    <% } else { %>
+        <% jobs.forEach(function(job) { %>
+            <div class="card">
+                <h3>
+                    Pekerjaan:
+                    <%= job.tittle %>
+                </h3>
+                <p><strong>Description:</strong>
+                    <%= job.desc %>
+                </p>
+            </div>
+            <% }); %>
+    <% } %> 
+
+            <script src="/js/script.js"></script>
+</body>
+
+</html>
