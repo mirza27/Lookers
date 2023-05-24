@@ -98,6 +98,8 @@ const inbox = async (req, res) => {
     const status = req.body.status;
     await db.query('UPDATE applications SET status = ${status} WHERE application_Id = ${rows.application_Id}');    
     res.render('inbox.ejs');
+  }else if(req.method==='GET' && !req.session.roleHRD){
+
   }  
 }
 
