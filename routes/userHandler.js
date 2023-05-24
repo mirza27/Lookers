@@ -66,7 +66,7 @@ const userRegister = async (req, res) => {
     res.render('register.ejs');
   } 
   else if (req.method === 'POST'){
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
     let isEmployee = false; // Variable to store the converted jenis value
 
     //if (jenis === 'employee')
@@ -83,19 +83,14 @@ const userRegister = async (req, res) => {
         }else{
             try{
                 // Tambahkan user baru ke database
-                const insert = await db.oneOrNone('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, password, isEmployee]);
-
-                if(insert){
+                await db.query('INSERT INTO users VALUES ($1, $2, $3, $4)', [username, email, password, isEmployee]);
+                const param = await db.oneOrNone('SELECT userId users WHERE ($1)', [username]);
+              
+                
                   setTimeout(() => {
                     res.send('Registrasi berhasil!');
                   }, 1000);
-                    res.redirect('/login');
-                }else{
-                    res.redirect('/register');
-                    res.send(`
-                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
-                        `);
-                }
+                    res.redirect('/register/');
                 
             }catch {
               console.log(err);
@@ -107,6 +102,34 @@ const userRegister = async (req, res) => {
     
     };
   }
+
+const regisJS = async (req, res) => {
+  if(req.method === 'GET'){
+    res.render('regisHRD.ejs');
+  }else if(req.method === 'POST'){
+    const { nama, contact, exp, gender, education } = req.body;
+    let genders = false;
+
+    if (gender === 'perempuan')
+        genders = true;
+
+    try{
+      await db.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5)', [nama, contact, address, genders]);
+
+      setTimeout(() => {
+                    res.send('Registrasi berhasil!');
+                  }, 1000);
+                    res.redirect('/login');
+      
+    }
+    
+    catch{
+                    res.redirect('/register');
+                    res.send(`
+                          <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+                        `);
+                }
+}
 
 // UNTUK LOGOUT
 const userLogout = async (req, res) => {
