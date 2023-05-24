@@ -16,28 +16,60 @@ const home = async (req, res) => {
       res.render('home.ejs'); // render tampilan home.ejs jika sudah login
 
     } else if (req.method === 'POST' && !req.session.roleHRD){
-      const searchTerm = req.body.search; // Kata yang diinputkan
+      try {
+    const searchTerm = req.query.keyword; // Kata yang diinputkan
 
-      const search = await db.oneOrNone(`
-        SELECT * FROM jobs
-        WHERE name LIKE '%${searchTerm}%'
-      `);
+    const query = `
+      SELECT * FROM jobs
+      WHERE name LIKE '%${searchTerm}%'
+    `;
 
-      if(search){
-        
-      }else{
-        //redirect ke bagian search
-        res.send(`
-              <script>alert('Data tidak ditemukan!');</script>
-            `);
+    const results = await new Promise((resolve, reject) => {
+      connection.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    res.render('home', { jobs: results });
+  } catch (err) {
+    console.error('Error dalam melakukan query: ', err);
+    res.status(500).json({ error: 'Terjadi kesalahan saat melakukan query' });
+  }
       }
     }
 
     // JIKA SEBAGAI HRD
     if (req.method === 'GET' && req.session.roleHRD){ // load home sebagai hrd
-
+      console.log(req.session.userId); // cetak id siapa yang login.
+      res.render('home.ejs'); // render tampilan home.ejs jika sudah login
     }else if (req.method === 'POST' && req.session.roleHRD){
+      try {
+    const searchTerm = req.query.keyword; // Kata yang diinputkan
 
+    const query = `
+      SELECT * FROM jobs
+      WHERE name LIKE '%${searchTerm}%'
+    `;
+
+    const results = await new Promise((resolve, reject) => {
+      connection.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    res.render('home', { jobs: results });
+  } catch (err) {
+    console.error('Error dalam melakukan query: ', err);
+    res.status(500).json({ error: 'Terjadi kesalahan saat melakukan query' });
+  }
     }
 
   }
