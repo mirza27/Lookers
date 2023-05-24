@@ -73,7 +73,7 @@ const home = async (req, res) => {
     }
 
   }
-}
+
 
 const inbox = async (req, res) => {
   try {
