@@ -14,7 +14,7 @@ const inbox = async (req, res) => {
             JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
             JOIN jobs ON applications.job_id = jobs.job_id
             JOIN employers ON jobs.employer_id = employers.employer_id 
-            WHERE employers.employer_id ='%${id}%'`
+            WHERE employers.employer_id ='${id}'`;
             const { applicants } = await db.query(sql);
 
             res.render('inbox.ejs', { applicants: applicants });
@@ -28,9 +28,11 @@ const inbox = async (req, res) => {
         res.render('inbox.ejs');
     } else if (req.method === 'GET' && !req.session.roleHRD) {
         try {
-            const id = req.params.id;
+            const id = req.session.userId;
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const sql = 'SELECT ${id} FROM jobseekers JOIN applications ON jobseekers.jobseeker_Id = applications.application_Id JOIN jobs ON applications.application_Id = jobs.job_Id';
+            const sql = `SELECT jobs.job_id, 'jobs.tittle', status FROM applications
+            JOIN jobs ON applications.application_id = jobs.job_id
+            WHERE applications.jobseeker_id ='${id}'`;
             const { applicants } = await db.query(sql);
 
             res.render('inbox.ejs', { applicants: applicants });
