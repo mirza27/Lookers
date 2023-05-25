@@ -48,6 +48,8 @@ app.post("/home/search", homeHandler.home);
 app.get("/home/inbox", inboxHandler.inbox);
 app.post("/home/inbox", inboxHandler.inbox);
 
+app.get("/home/myJobs", inboxHandler.myJobs);
+
 // Jalankan server
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
