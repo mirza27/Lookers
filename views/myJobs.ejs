@@ -1,0 +1,20 @@
+<!-- myJobs.ejs -->
+
+<h1>My Jobs</h1>
+
+<% if (jobs.length === 0) { %>
+  <p>Tidak ada pekerjaan yang tersedia.</p>
+<% } else { %>
+  <ul>
+    <% jobs.forEach(function(job) { %>
+      <li>
+        <h3><%= job.tittle %></h3>
+        <p>Category: <%= job.category %></p>
+        <p>Deskripsi: <%= job.deskripsi %></p>
+        <p>Salary Range: <%= job.salary_min %> - <%= job.salary_max %></p>
+        <p>Location: <%= job.location %></p>
+        <p>Experience: <%= job.experience %></p>
+      </li>
+    <% }); %>
+  </ul>
+<% } %>
