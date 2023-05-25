@@ -29,9 +29,7 @@ const addApp = async (req, res) => {
         try {
             await db.query(`INSERT INTO applications VALUES (${req.session.userId}, ${req.body.job_id}, ${status})`);
             res.redirect(`/home`);
-            res.send(`
-                <script>alert('Application Berhasil!.');</script>
-            `);
+            //res.send(`<script>alert('Add Aplicant Berhasil!.');</script>`);
         } catch (err) {
             console.error('Error dalam fungsi addApp: ', err);
             res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
