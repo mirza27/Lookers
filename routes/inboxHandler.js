@@ -53,6 +53,14 @@ const inbox = async (req, res) => {
     }
 }
 
+const myJobs = async (req, res) => {
+    if(req.method === 'GET'){
+        const jobs = await db.any(`SELECT * FROM jobs WHERE employer_id = ${req.session.userId}`);
+        res.redirect(`myJobs.ejs`, { jobs: jobs });
+    }
+}
+
 module.exports = {
-    inbox
+    inbox,
+    myJobs
 }
