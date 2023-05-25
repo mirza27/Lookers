@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Job</title>
+</head>
+
+<body>
+    <h1>Add Job</h1>
+
+    <form action="/home/addJob" method="POST">
+        <label for="id">Id:</label>
+        <input type="text" id="id" name="id" required>
+
+        <label for="tittle">Title:</label>
+        <input type="text" id="tittle" name="tittle" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" required>
+
+        <label for="desc">Description:</label>
+        <textarea id="desc" name="desc" required></textarea>
+
+        <label for="salary_min">Minimum Salary:</label>
+        <input type="number" id="salary_min" name="salary_min" required>
+
+        <label for="salary_max">Maximum Salary:</label>
+        <input type="number" id="salary_max" name="salary_max" required>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="exp">Experience:</label>
+        <input type="text" id="exp" name="exp" required>
+
+        <button type="submit">Add Job</button>
+    </form>
+</body>
+
+</html>
