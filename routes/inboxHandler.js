@@ -9,10 +9,10 @@ const inbox = async (req, res) => {
         try {
             const id = req.params.id;
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const query = 'SELECT ${id} FROM employers JOIN jobs ON employers.employer_Id = jobs.job_Id JOIN applications ON jobs.job_Id = applications.application_Id';
-            const { rows } = await db.query(query);
+            const sql = `SELECT * FROM employers JOIN jobs ON employers.employer_Id = jobs.job_Id JOIN applications ON jobs.job_Id = applications.application_Id WHERE employers.employer_id ='%${id}%'`
+            const { applicants } = await db.query(sql);
 
-            res.render('inbox.ejs', { applicants: rows });
+            res.render('inbox.ejs', { applicants: applicants });
         } catch (err) {
             console.error('Error dalam melakukan query: ', err);
             res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
@@ -25,10 +25,10 @@ const inbox = async (req, res) => {
         try {
             const id = req.params.id;
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const query = 'SELECT ${id} FROM jobseekers JOIN applications ON jobseekers.jobseeker_Id = applications.application_Id JOIN jobs ON applications.application_Id = jobs.job_Id';
-            const { rows } = await db.query(query);
+            const sql = 'SELECT ${id} FROM jobseekers JOIN applications ON jobseekers.jobseeker_Id = applications.application_Id JOIN jobs ON applications.application_Id = jobs.job_Id';
+            const { applicants } = await db.query(sql);
 
-            res.render('inbox.ejs', { applicants: rows });
+            res.render('inbox.ejs', { applicants: applicants });
         } catch (err) {
             console.error('Error dalam melakukan query: ', err);
             res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
