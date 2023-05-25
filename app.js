@@ -45,6 +45,8 @@ app.post("/home", homeHandler.home);
 
 app.post("/home/search", homeHandler.home); 
 
+app.get("/home/inbox", inboxHandler.inbox);
+app.post("/home/inbox", inboxHandler.inbox);
 
 // Jalankan server
 app.listen(port, () => {
