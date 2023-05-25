@@ -101,7 +101,7 @@ ul {
 .showcase {
   width: 100%;
   height: 400px;
-  background: url("media/fotor_2023-5-25_1_56_58.png") no-repeat center
+  background: url("../img/fotor_2023-5-25_1_56_58.png") no-repeat center
     center/cover;
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ ul {
 .xbox {
   width: 100%;
   height: 350px;
-  background: url("media/fotor_2023-5-25_2_6_41.png") no-repeat center
+  background: url("../img/fotor_2023-5-25_2_6_41.png") no-repeat center
     center/cover;
   margin-bottom: 20px;
 }
