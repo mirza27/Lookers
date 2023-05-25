@@ -43,8 +43,7 @@ app.post("/register/js/:id", userHandler.regisJS);
 app.get("/home", homeHandler.home);
 app.post("/home", homeHandler.home);
 
-app.get("/search", homeHandler.search);
-app.post("/search", homeHandler.search);
+app.post("/home/search", homeHandler.home); 
 
 
 // Jalankan server

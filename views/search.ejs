@@ -10,13 +10,13 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+            <form action="/home/search" method="POST">
+                <input type="text" name="search" placeholder="Search by name">
+                <button type="submit">Search</button>
+            </form>
             <li><a href="/contact">Contact</a></li>
         </ul>
-        <form action="/search" method="POST">
-            <input type="text" name="search" placeholder="Search by name">
-            <button type="submit">Search</button>
-        </form>
+     
     </nav>
     <% if(jobs.length<=0){ %>
     <p> Data tidak ditemukan! </p>
