@@ -7,9 +7,14 @@ app.set('view engine', 'ejs');
 const inbox = async (req, res) => {
     if (req.method === 'GET' && req.session.roleHRD) {
         try {
-            const id = req.params.id;
+            const id = req.session.userId;
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const sql = `SELECT * FROM employers JOIN jobs ON employers.employer_Id = jobs.job_Id JOIN applications ON jobs.job_Id = applications.application_Id WHERE employers.employer_id ='%${id}%'`
+            const sql = `SELECT jobseekers.jobseeker_id, jobseekers.name, 'exp', experience, education FROM jobseeker_detail
+            JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
+            JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
+            JOIN jobs ON applications.job_id = jobs.job_id
+            JOIN employers ON jobs.employer_id = employers.employer_id 
+            WHERE employers.employer_id ='%${id}%'`
             const { applicants } = await db.query(sql);
 
             res.render('inbox.ejs', { applicants: applicants });
