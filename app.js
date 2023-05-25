@@ -53,8 +53,8 @@ app.post("/home/inbox", inboxHandler.inbox);
 app.get("/home/myJobs", inboxHandler.myJobs);
 app.post("/home/myJobs", inboxHandler.myJobs);
 
-app.get("/home/addJob", jobHandler.addJob);
-app.post("/home/addJob", jobHandler.addJob);
+app.get("/home/addJobs", jobHandler.addJob);
+app.post("/home/addJobs", jobHandler.addJob);
 
 app.get("/home/addApp", jobHandler.addApp);
 app.post("/home/addApp", jobHandler.addApp);

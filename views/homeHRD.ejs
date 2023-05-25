@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HOMEPAGE</title>
   </head>
-  <link rel="stylesheet" href="homejob.css" />
+  <link rel="stylesheet" href="css/homehrd.css" />
   <body>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-
     <div class="menu-btn">
       <i class="fas fa-bars fa-2x"></i>
     </div>
@@ -22,24 +21,27 @@
       <nav class="main-nav">
         <img
           src="https://i.ibb.co/wwLhz98/logo.png"
-          alt="Microsoft"
+          alt="LOOKERS"
           class="logo"
         />
 
         <ul class="main-menu">
-          <li><a  href="#">Status Lamaran</a></li>
-          <li><a  href="#">Pekerjaan</a></li>
+          <li><a  href="/home/inbox">Inbox</a></li>
+          <li><a  href="/home/myJobs">My Jobs</a></li>
+          <li><a  href="/home/addJobs">Add Jobs</a></li>
           
         </ul>
 
         <div class="search-form">
-          <input type="text" placeholder="Cari" />
+          <form action="/home/search" method="POST">
+          <input name="search" type="search" placeholder="Cari" />
           <button ><i style="margin-right: 400px ;" class="fas fa-search"></i></button>
+          </form>
         </div>
 
         <ul class="right-menu">
           <li>
-            <li><a  href="#">Nama Akun</a></li>
+            <li><a  href="#">Nama Perusahaan</a></li>
             <a href="#">
               <i class="fas fa-phone-square"></i>
             </a>
@@ -49,50 +51,31 @@
 
       <!-- Showcase -->
       <header class="showcase">
-        <h2>Grab Your Dream</h2>
+        <h2>Selamat datang ,<%= jobs.sessionUser%></h2>
         <p>Become Succes With Lookers</p>
-        <!-- <a href="#" class="btn">
-          Shop Now <i class="fas fa-chevron-right"></i>
-        </a> -->
+        
       </header>
       <!-- Home cards 1 -->
       <section class="home-cards">
+        <% jobs.forEach(function(job) { %>
         <div>
-          <img src="media/wepik-export-202305241741059qso.png" alt="" />
-          <h3>Engineer</h3>
-          <p>
-            See how Katie Sowers, Asst. Coach for the 49ers, uses Surface Pro 7
-            to put her plans into play.
-          </p>
+          <% if (job.category_id == 1){%>
+            <img src="/img/teacher.jpg" alt="" />
+            <%} else if(job.category_id == 2){%>
+              <img src="/img/engineer.png" alt="" />
+            <%} else if(job.category_id == 3){ %>
+              <img src="/img/chef.jpg" alt="" />
+            <%} else if(job.category_id == 4){ %>
+              <img src="/img/it.jpg" alt="" />
+            <%} else if(job.category_id == 5){ %>
+              <img src="/img/accountant.jpg" alt="" />
+            <%} %>
+          <h3><%= job.tittle %></h3>
+          <p><%= job.desc %></p>
           <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
         </div>
-        <div>
-          <img src="https://i.ibb.co/KjGFHVJ/card2.png" alt="" />
-          <h3>Teacher</h3>
-          <p>
-            Express yourself powerfully with a thin, light, and elegant design,
-            faster performance, and up to 11.5 hours battery life.
-          </p>
-          <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
-        </div>
-        <div>
-          <img src="https://i.ibb.co/2cnshH6/card3.png" alt="" />
-          <h3>Manager</h3>
-          <p>
-            Buy an Xbox One X console and double your fun with a free select
-            extra controller. Starting at $349.
-          </p>
-          <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
-        </div>
-        <div>
-          <img src="https://i.ibb.co/G57P0Pb/card4.png" alt="" />
-          <h3>Seller</h3>
-          <p>
-            Expect more. World class performance, with more privacy, more
-            productivity, and more value.
-          </p>
-          <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
-        </div>
+
+        <% }); %>
       </section>
 
       <!-- Xbox -->
@@ -115,17 +98,16 @@
         <div><i class="fas fa-globe fa-2x"></i> English (United States)</div>
         <ul>
           <li><a href="#">Sitemap</a></li>
-          <li><a href="#">Contact Microsoft</a></li>
+          <li><a href="#">Contact Lookers</a></li>
           <li><a href="#">Privacy & cookies</a></li>
           <li><a href="#">Terms of use</a></li>
           <li><a href="#">Trademarks</a></li>
           <li><a href="#">Safety & eco</a></li>
           <li><a href="#">About our ads</a></li>
-          <li><a href="#">&copy; Microsoft 2020</a></li>
+          <li><a href="#">&copy; Lookers</a></li>
         </ul>
       </div>
     </footer>
+    <script src="jscoba.js"></script>
   </body>
 </html>
-
-<script src="jscoba.js"></script>
