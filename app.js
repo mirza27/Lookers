@@ -4,6 +4,7 @@ const app = express();
 const userHandler = require('./routes/userHandler')
 const homeHandler = require('./routes/homeHandler');
 const inboxHandler = require('./routes/inboxHandler');
+const jobHandler = require('./routes/jobHandler');
 const port = 3000;
 
 // SET ENGINE EJS
@@ -50,6 +51,13 @@ app.get("/home/inbox", inboxHandler.inbox);
 app.post("/home/inbox", inboxHandler.inbox);
 
 app.get("/home/myJobs", inboxHandler.myJobs);
+app.post("/home/myJobs", inboxHandler.myJobs);
+
+app.get("/home/addJob", jobHandler.addJob);
+app.post("/home/addJob", jobHandler.addJob);
+
+app.get("/home/addApp", jobHandler.addApp);
+app.post("/home/addApp", jobHandler.addApp);
 
 // Jalankan server
 app.listen(port, () => {
