@@ -23,8 +23,18 @@ const inbox = async (req, res) => {
             res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
         }
     } else if (req.method === 'POST' && req.session.roleHRD) {
-        const status = req.body.status;
-        await db.query('UPDATE applications SET status = ${status} WHERE application_Id = ${rows.application_Id}');
+        const { sAcc, sRej } = req.body;
+
+        if (sAcc && parseInt(sAcc)) {
+            const userId = parseInt(sAcc);
+            // Perform the database update code to set Accept
+            db.query(`UPDATE applications SET status = "Accept" WHERE jobseeker_id = ${userId}`);
+        }
+        if (sRej && parseInt(sRej)) {
+            const userId = parseInt(sRej);
+            // Perform the database update code to set Reject
+            db.query(`UPDATE applications SET status = "Reject" WHERE jobseeker_id = ${userId}`);
+        }
         res.render('inbox.ejs');
     } else if (req.method === 'GET' && !req.session.roleHRD) {
         try {
