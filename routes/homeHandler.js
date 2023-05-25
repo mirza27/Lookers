@@ -19,14 +19,14 @@ const home = async (req, res) => {
         const jobs = await db.any('SELECT * FROM jobs');
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('home.ejs', { jobs: jobs });
+        res.render('homeJS_tes.ejs', { jobs: jobs });
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
       }
 
     } else if (req.method === 'POST' && !req.session.roleHRD) { // post di search
-      console.log('seacrh' + searchTerm);
+      
       try {
 
         // Lakukan query ke database untuk mendapatkan data card
@@ -34,10 +34,11 @@ const home = async (req, res) => {
             SELECT * FROM jobs
             WHERE tittle ILIKE '%${searchTerm}%'
           `);
+        jobs.sessionUser = req.session.userName; // menambah data session ke ejs
 
-        console.log('hasil' + query);
+       
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search.ejs', { jobs: jobs });
+        res.render('search_tes.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
@@ -52,16 +53,17 @@ const home = async (req, res) => {
       try {
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any('SELECT * FROM jobs');
+        jobs.sessionUser = req.session.userName; // menambah data session ke ejs
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        //res.render('home.ejs', { jobs: jobs });
+        res.render('homeHRD_tes.ejs', { jobs: jobs });
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
       }
 
     } else if (req.method === 'POST' && req.session.roleHRD) { // post di search
-      console.log('seacrh' + searchTerm);
+      
       try {
 
         // Lakukan query ke database untuk mendapatkan data card
@@ -70,9 +72,9 @@ const home = async (req, res) => {
             WHERE tittle ILIKE '%${searchTerm}%'
           `);
 
-        console.log('hasil' + query);
+        
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search.ejs', { jobs: jobs });
+        res.render('search_tes.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);

@@ -3,6 +3,7 @@ const db = require('./db/db');
 const app = express();
 const userHandler = require('./routes/userHandler')
 const homeHandler = require('./routes/homeHandler');
+const inboxHandler = require('./routes/inboxHandler');
 const port = 3000;
 
 // SET ENGINE EJS

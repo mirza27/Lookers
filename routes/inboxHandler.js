@@ -15,9 +15,12 @@ const inbox = async (req, res) => {
             JOIN jobs ON applications.job_id = jobs.job_id
             JOIN employers ON jobs.employer_id = employers.employer_id 
             WHERE employers.employer_id ='${id}'`;
-            const { applicants } = await db.query(sql);
 
+            const { applicants } = await db.query(sql);
+            applicants.sessionUser = req.session.userName; // menambah data session ke ejs
+            
             res.render('inbox.ejs', { applicants: applicants });
+
         } catch (err) {
             console.error('Error dalam melakukan query: ', err);
             res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
