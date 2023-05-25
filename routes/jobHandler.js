@@ -9,9 +9,20 @@ const addJob = async (req, res) => {
         res.render(`addJob.ejs`);
     } else if (req.method === 'POST') {
         const { id, tittle, category, desc, salary_min, salary_max, location, exp } = req.body;
+        let category_id = 0;
+        if(category==='full-time'){
+            category_id=1;
+        }else if(category==='part-time'){
+            category_id=2;
+        }else if(category==='harian'){
+            category_id=3;
+        }else if(category==='remote'){
+            category_id=4;
+        }
+        
         try {
             const is_done = false;
-            await db.query(`INSERT INTO jobs VALUES (${id}, ${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
+            await db.query(`INSERT INTO jobs VALUES (${id}, ${category_id}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
             //res.send(`<script>alert('Add Job Berhasil!.');</script>`);
             res.redirect(`/home/`);
         } catch (err) {
