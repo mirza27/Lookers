@@ -1,20 +1,107 @@
-<!-- myJobs.ejs -->
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>My Jobs</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Jobs</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<% if (jobs.length === 0) { %>
-  <p>Tidak ada pekerjaan yang tersedia.</p>
-<% } else { %>
-  <ul>
-    <% jobs.forEach(function(job) { %>
-      <li>
-        <h3><%= job.tittle %></h3>
-        <p>Category: <%= job.category %></p>
-        <p>Deskripsi: <%= job.deskripsi %></p>
-        <p>Salary Range: <%= job.salary_min %> - <%= job.salary_max %></p>
-        <p>Location: <%= job.location %></p>
-        <p>Experience: <%= job.experience %></p>
-      </li>
-    <% }); %>
-  </ul>
-<% } %>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #03001c;
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1.5;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 5px;
+        }
+
+        /* Style untuk info job */
+        .job {
+            background-color: #262626;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        /* Style untuk kategori job */
+        .category {
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #1c1c1c;
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Style untuk tombol */
+        .button {
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Jobs</h1>
+
+    <% if (jobs.length===0) { %>
+    <p>Tidak ada pekerjaan yang tersedia.</p>
+    <% } else { %>
+    <ul>
+        <% jobs.forEach(function(job) { %>
+        <li>
+            <div class="job">
+                <h3><%= job.tittle %></h3>
+                <p class="category"><%= job.name %></p>
+                <p>Deskripsi: <%= job.deskripsi %></p>
+                <p>Salary Range: <%= job.salary_min %> - <%= job.salary_max %></p>
+                <p>Location: <%= job.location %></p>
+                <p>Experience: <%= job.exp %></p>
+                <% if (!job.is_done) { %>
+                  <form method="POST" action="/home/myJobs">
+                    <button class="button" name="is_done" value="<%= job.job_id %>" type="submit">Mark as Done</button>
+                  </form>
+                <% }%>
+            </div>
+        </li>
+        <% }); %>
+    </ul>
+    <% } %>    
+</body>
+
+</html>
