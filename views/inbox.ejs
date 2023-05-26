@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HOMEPAGE</title>
+  <title>INBOX</title>
   <link rel="stylesheet" href="/css/tryinbox.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <style>
@@ -55,9 +55,11 @@
       </ul>
 
       <div class="search-form">
-        <input type="text" placeholder="Cari" />
-        <button><i style="margin-right: 400px ;" class="fas fa-search"></i></button>
-      </div>
+        <form action="/home/search" method="POST">
+      <input name="search" type="text" placeholder="Cari" />
+      <button><i style="margin-right: 400px ;" class="fas fa-search"></i></button>
+    </form>
+    </div>
 
       <ul class="right-menu">
         <li>
@@ -122,7 +124,7 @@
             <li><a href="#">Trademarks</a></li>
             <li><a href="#">Safety & eco</a></li>
             <li><a href="#">About our ads</a></li>
-            <li><a href="#">&copy; Microsoft 2020</a></li>
+            <li><a href="#">&copy;Lookers 2023</a></li>
           </ul>
         </div>
       </footer>

@@ -32,14 +32,15 @@ const home = async (req, res) => {
 
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`
-            SELECT * FROM jobs
-            WHERE tittle ILIKE '%${searchTerm}%'
+        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max , category_id, jobs.desc FROM jobs 
+        JOIN employers ON employers.employer_id = jobs.employer_id
+          WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
         
 
        
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search_tes.ejs', { jobs: jobs });
+        res.render('search.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
@@ -69,13 +70,14 @@ const home = async (req, res) => {
 
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`
-            SELECT * FROM jobs
-            WHERE tittle ILIKE '%${searchTerm}%'
+        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max , category_id, jobs.desc FROM jobs 
+        JOIN employers ON employers.employer_id = jobs.employer_id
+          WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
 
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search_tes.ejs', { jobs: jobs });
+        res.render('search.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
