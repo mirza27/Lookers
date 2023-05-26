@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HOMEPAGE</title>
-  <link rel="stylesheet" href="tryinbox.css" />
+  <link rel="stylesheet" href="/css/tryinbox.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <style>
     body {
@@ -73,7 +73,7 @@
     </div>
     <!--CARD-->
 
-    <% if (applicants.length===0) { %>
+    <% if (!applicants) { %>
       <p>Tidak ada pelamar saat ini.</p>
     <% } else { %>
       <% applicants.forEach(function(applicant) { %>
@@ -86,14 +86,16 @@
               <%= applicant.name %>
             </p>
             <p class="description"><strong>Education:</strong>
-              <%= applicant.education%>
+              <%= applicant.education %>
             </p>
             <button class="pref" onclick="showPopup()">Tampilkan Lebih Banyak</button>
 
             <div class="popup" id="popup">
               <h2 class="title" style="color: black;">Experience</h2>
               <p class="description" style="color: black;"><strong>Experience:</strong>
-                <%= applicant.experience applicant.exp%>
+                <%= applicant.experience%>
+                <%= applicant.exp %>
+
               </p>
               <button class="pref" onclick="hidePopup()">Close</button>
             </div>
