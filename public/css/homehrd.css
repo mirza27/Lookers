@@ -399,3 +399,9 @@ input {
 button {
   font-size: 20px;
 }
+
+.text-limit {
+  overflow: hidden;
+  max-height: 3em;  /* Atur tinggi maksimum yang sesuai */
+  text-overflow: ellipsis;  /* Tambahkan ellipsis jika teks terpotong */
+}
