@@ -49,8 +49,9 @@
       <img src="https://i.ibb.co/wwLhz98/logo.png" alt="Microsoft" class="logo" />
 
       <ul class="main-menu">
-        <li><a href="#">Inbox</a></li>
-        <li><a href="#">Add Pekerjaan</a></li>
+        <li><a  href="/home/inbox">Inbox</a></li>
+        <li><a  href="/home/myJobs">My Jobs</a></li>
+        <li><a  href="/home/addJobs">Add Jobs</a></li>
       </ul>
 
       <div class="search-form">
@@ -80,13 +81,13 @@
 
           <div class="cookie-card">
             <span class="title">
-              <%= applicant.jobseeker_id %>
+              Nama Pekerjaan : <%= applicant.tittle %> 
             </span>
             <p class="description"><strong>Nama Pelamar:</strong>
               <%= applicant.name %>
             </p>
             <p class="description"><strong>Education:</strong>
-              <%= applicant.education %>
+              <%= applicant.education %> <strong>Pengalaman:</strong>  <%= applicant.exp %>
             </p>
             <button class="pref" onclick="showPopup()">Tampilkan Lebih Banyak</button>
 
@@ -94,8 +95,6 @@
               <h2 class="title" style="color: black;">Experience</h2>
               <p class="description" style="color: black;"><strong>Experience:</strong>
                 <%= applicant.experience%>
-                <%= applicant.exp %>
-
               </p>
               <button class="pref" onclick="hidePopup()">Close</button>
             </div>
