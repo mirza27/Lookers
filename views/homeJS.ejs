@@ -1,99 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOMEPAGE</title>
-  </head>
-  <link rel="stylesheet" href="css/homehrd.css" />
-  <body>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <div class="menu-btn">
-      <i class="fas fa-bars fa-2x"></i>
-    </div>
 
-    <div class="container">
-      <!-- Nav -->
-      <nav class="main-nav">
-        <img
-          src="https://i.ibb.co/wwLhz98/logo.png"
-          alt="LOOKERS"
-          class="logo"
-        />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOMEPAGE</title>
+</head>
+<link rel="stylesheet" href="css/homehrd.css" />
 
-        <ul class="main-menu">
-          <li><a  href="/home/My Applicant">My Applicant</a></li>
-          <li><a  href="/home/allJobs">All Jobs</a></li>
-          
-        </ul>
+<body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <div class="menu-btn">
+    <i class="fas fa-bars fa-2x"></i>
+  </div>
 
-        <div class="search-form">
-          <form action="/home/search" method="POST">
+  <div class="container">
+    <!-- Nav -->
+    <nav class="main-nav">
+      <img src="https://i.ibb.co/wwLhz98/logo.png" alt="LOOKERS" class="logo" />
+
+      <ul class="main-menu">
+        <li><a href="/home/My Applicant">My Applicant</a></li>
+        <li><a href="/home/allJobs">All Jobs</a></li>
+
+      </ul>
+
+      <div class="search-form">
+        <form action="/home/search" method="POST">
           <input name="search" type="search" placeholder="Cari" />
-          <button ><i style="margin-right: 400px ;" class="fas fa-search"></i></button>
-          </form>
-        </div>
+          <button><i style="margin-right: 400px ;" class="fas fa-search"></i></button>
+        </form>
+      </div>
 
-        <ul class="right-menu">
-          <li>
-            <li><a  href="#"><%= jobs.sessionUser%></a></li>
-            <a href="#">
-              <i class="fas fa-phone-square"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <ul class="right-menu">
+        <li>
+        <li><a href="#">
+            <%= jobs.sessionUser%>
+          </a></li>
+        <a href="#">
+          <i class="fas fa-phone-square"></i>
+        </a>
+        </li>
+      </ul>
+    </nav>
 
-      <!-- Showcase -->
-      <header class="showcase">
-        <h2>Selamat datang ,<%= jobs.sessionUser%></h2>
-        <p>Become Succes With Lookers</p>
-        
-      </header>
-      <h2>
-        Lowongan rekomendasi untuk anda :
+    <!-- Showcase -->
+    <header class="showcase">
+      <h2>Selamat datang ,<%= jobs.sessionUser%>
       </h2>
-      <!-- Home cards 1 -->
-      <section class="home-cards">
-        <% jobs.forEach(function(job) { %>
+      <p>Become Succes With Lookers</p>
+
+    </header>
+    <h2>
+      Lowongan rekomendasi untuk anda :
+    </h2>
+    <!-- Home cards 1 -->
+    <section class="home-cards">
+      <% jobs.forEach(function(job) { %>
         <div>
-          <% if (job.category_id == 1){%>
-          <img src="/img/teacher.jpg" alt="" />
-          <%} else if(job.category_id == 2){%>
-            <img src="/img/engineer.png" alt="" />
-          <%} else if(job.category_id == 3){ %>
-            <img src="/img/chef.jpg" alt="" />
-          <%} else if(job.category_id == 4){ %>
-            <img src="/img/it.jpg" alt="" />
-          <%} else if(job.category_id == 5){ %>
-            <img src="/img/accountant.jpg" alt="" />
-          <%} %>
-          <h3><%= job.tittle %></h3>
-          <p><%= job.desc %></p>
-          <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
+          <% if (job.category_id==1){%>
+            <img src="/img/teacher.jpg" alt="" />
+            <%} else if(job.category_id==2){%>
+              <img src="/img/engineer.png" alt="" />
+              <%} else if(job.category_id==3){ %>
+                <img src="/img/chef.jpg" alt="" />
+                <%} else if(job.category_id==4){ %>
+                  <img src="/img/it.jpg" alt="" />
+                  <%} else if(job.category_id==5){ %>
+                    <img src="/img/accountant.jpg" alt="" />
+                    <%} %>
+                      <h3>
+                        <%= job.tittle %>
+                      </h3>
+                      <p>
+                        <%= limitWords(job.desc, 20) %>
+                      </p>
+                      <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
         </div>
 
         <% }); %>
-      </section>
+    </section>
 
-      <!-- Xbox -->
-      <section class="xbox">
-        <div class="content">
-          <h2>Lamar Jobs</h2>
-          <p>
-            Dapatkan pekerjaan dan tawaran sesuai passion dan minat anda, tingkatkan skill anda
-          </p>
-          <a href="/home/allJobs" class="btn">
-            Cari <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      </section>
+    <!-- Xbox -->
+    <section class="xbox">
+      <div class="content">
+        <h2>Lamar Jobs</h2>
+        <p>
+          Dapatkan pekerjaan dan tawaran sesuai passion dan minat anda, tingkatkan skill anda
+        </p>
+        <a href="/home/allJobs" class="btn">
+          Cari <i class="fas fa-chevron-right"></i>
+        </a>
+      </div>
+    </section>
 
-      
+
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-inner">
@@ -111,5 +113,27 @@
       </div>
     </footer>
     <script src="jscoba.js"></script>
-  </body>
+    <script>
+      // Function to limit words
+      function limitWords(text, limit) {
+        // Split the text into an array of words
+        const words = text.split(' ');
+
+        // Slice the array to the specified limit
+        const limitedWords = words.slice(0, limit);
+
+        // Join the limited words back into a string
+        const limitedText = limitedWords.join(' ');
+
+        // Add ellipsis if the original text exceeds the limit
+        if (words.length > limit) {
+          return limitedText + '...';
+        }
+
+        return limitedText;
+      }
+
+    </script>
+</body>
+
 </html>
