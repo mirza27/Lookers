@@ -54,7 +54,13 @@ const addApp = async (req, res) => {
       
         } else{
             if (req.method === 'GET') {
-                res.render(`addApp.ejs`);
+                 try{
+                    const job = await db.query(`SELECT * FROM jobs WHERE job_id = ${req.body.job_id}`);
+                    res.render(`addApp.ejs`, { job:job });
+                }catch(err){
+                    console.error('Error dalam fungsi addApp: ', err);
+                    res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data job' });
+                }
             } else if (req.method === 'POST') {
                 const status = false;
                 try {
