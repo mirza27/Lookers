@@ -3,16 +3,83 @@
 
 <head>
     <title>Insert Application</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #03001c;
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .add-app {
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .add-app h1 {
+            margin-bottom: 20px;
+        }
+
+        .add-app p {
+            margin-bottom: 15px;
+        }
+
+        .add-app form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .add-app form input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .add-app form button {
+            cursor: pointer;
+            display: inline-block;
+            border: 0;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: #262626;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .add-app form button:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Apply for a Job</h1>
+    <div class="add-app">
+        <h1>Apply for a Job</h1>
 
-    <form action="/addApp" method="POST">
-        <label for="job_id"></label>
-        <input type="number" name="job_id" id="job_id" required>
-        <button type="submit" name="job_id">Apply</button>
-    </form>
+        <p><strong>Job Details:</strong></p>
+        <p><strong>Name:</strong> <%= job.tittle %></p>
+        <p><strong>Description:</strong> <%= job.desc %></p>
+        <p><strong>Salary:</strong> <%= job.salary_min %> - <%= job.salary_max %></p>
+        <p><strong>Address:</strong> <%= job.location %></p>
+
+        <form action="/addApp" method="POST">
+            <input type="hidden" name="job_id" value="<%= job.id %>">
+
+            <button type="submit">Apply</button>
+        </form>
+    </div>
 </body>
 
 </html>
