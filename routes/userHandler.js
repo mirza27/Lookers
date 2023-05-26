@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('../db/db');
-
+const bcrypt = require('bcrypt');
 const pgp = db.$config.pgp;
 
 // UNTUK LOGIN
@@ -25,7 +25,7 @@ const userLogin = async (req, res) => {
         }
     
         // Verifikasi password
-        const isPasswordValid = await password == user.password;
+        const isPasswordValid = await bcrypt.compare(password, user.password);
 
         // Jika password tidak valid
         if (!isPasswordValid) {
@@ -71,8 +71,9 @@ const userRegister = async (req, res) => {
       res.redirect('/register');
     }else{
       try{
+        const hashedPassword = await bcrypt.hash(password, 10);
         // Tambahkan user baru ke database
-        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [username, email, password, role]);
+        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [username, email, hashedPassword, role]);
         const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
        
         var id = parseInt(user_id.user_id); // id sebagai param
