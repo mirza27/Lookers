@@ -16,7 +16,7 @@ const home = async (req, res) => {
       console.log(req.session.userId); // cetak id siapa yang login.
       try {
         // Lakukan query ke database untuk mendapatkan data card
-        const jobs = await db.any('SELECT * FROM jobs ORDER BY job_id WHERE is_done = false LIMIT 4');
+        const jobs = await db.any(`SELECT * FROM jobs WHERE is_done = 'false' ORDER BY job_id LIMIT 4`);
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
@@ -54,7 +54,7 @@ const home = async (req, res) => {
       console.log(req.session.userId); // cetak id siapa yang login.
       try {
         // Lakukan query ke database untuk mendapatkan data card
-        const jobs = await db.any(`SELECT * FROM jobs WHERE employer_id = ${req.session.userId} AND WHERE is_done = false LIMIT 4`);
+        const jobs = await db.any(`SELECT * FROM jobs WHERE employer_id = ${req.session.userId} LIMIT 4`);
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
@@ -74,7 +74,7 @@ const home = async (req, res) => {
         JOIN employers ON employers.employer_id = jobs.employer_id
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
-
+          jobs.isHrd = req.session.roleHRD
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('search.ejs', { jobs: jobs });

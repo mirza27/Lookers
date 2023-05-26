@@ -97,11 +97,13 @@
                 </p>
                 <button class="pref" onclick="hidePopup()">Close</button>
               </div>
+              <% if (!jobs.isHrd){%>
               <div class="accept-reject">
                 <button class="accept">
                   Apply
                 </button>
               </div>
+              <% } %>
               <div class="backdrop" id="backdrop"></div>
             </div>
         <% }); %>
