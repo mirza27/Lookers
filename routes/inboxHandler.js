@@ -7,18 +7,26 @@ app.set('view engine', 'ejs');
 const inbox = async (req, res) => {
     if (req.method === 'GET' && req.session.roleHRD) {
         try {
-            const id = req.session.userId;
+            console.log("session id",req.session.userId)
+          
+            
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const sql = `SELECT jobseekers.jobseeker_id, jobseekers.name, 'exp', experience, education FROM jobseeker_detail
+            const sql = `SELECT jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
             JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
             JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
             JOIN jobs ON applications.job_id = jobs.job_id
             JOIN employers ON jobs.employer_id = employers.employer_id 
-            WHERE employers.employer_id ='${id}'`;
+            WHERE employers.employer_id = ${req.session.userId} `;
 
-            const { applicants } = await db.query(sql);
-            applicants.sessionUser = req.session.userName; // menambah data session ke ejs
+            const { applicants } = db.any(`SELECT jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
+            JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
+            JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
+            JOIN jobs ON applications.job_id = jobs.job_id
+            JOIN employers ON jobs.employer_id = employers.employer_id 
+            WHERE employers.employer_id = ${req.session.userId} `);
+            //applicants.sessionUser = req.session.userName; // menambah data session ke ejs
             
+            console.log(JSON.stringify(applicants))
             res.render('inbox.ejs', { applicants: applicants });
 
         } catch (err) {
@@ -58,8 +66,24 @@ const inbox = async (req, res) => {
 
 const myJobs = async (req, res) => {
     if(req.method === 'GET'){
-        const jobs = await db.any(`SELECT * FROM jobs WHERE employer_id = ${req.session.userId}`);
-        res.redirect(`myJobs.ejs`, { jobs: jobs });
+        try{
+            const jobs = await db.any(`SELECT jobs.job_id, jobs.tittle, jobs.desc, jobs.salary_min, jobs.salary_max, jobs.location, jobs.exp, categories.name
+            FROM categories
+            JOIN jobs ON categories.category_id = jobs.category_id
+            WHERE jobs.employer_id = ${req.session.userId};`);
+            res.render(`myJobs.ejs`, { jobs: jobs });
+        }catch(err){
+            console.error('Error dalam melakukan query: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerjaan' });
+        }
+    }else if(req.method==='POST'){
+        try{
+            await db.query(`UPDATE jobs SET is_done = true WHERE job_id = ${req.body.is_done}`);
+            res.redirect(`/home/myJobs`);
+        }catch(err){
+            console.error('Error dalam melakukan query: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pekerjaan' });
+        }
     }
 }
 
