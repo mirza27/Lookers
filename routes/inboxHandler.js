@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const router = express.Router();
 const db = require('../db/db');
 app.set('view engine', 'ejs');
 
@@ -11,14 +10,8 @@ const inbox = async (req, res) => {
           
             
             // Menjalankan query untuk mendapatkan daftar pelamar
-            const sql = `SELECT jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
-            JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
-            JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
-            JOIN jobs ON applications.job_id = jobs.job_id
-            JOIN employers ON jobs.employer_id = employers.employer_id 
-            WHERE employers.employer_id = ${req.session.userId} `;
 
-            const { applicants } = db.any(`SELECT jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
+            const results = await db.any( `SELECT jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
             JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
             JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
             JOIN jobs ON applications.job_id = jobs.job_id
@@ -26,8 +19,8 @@ const inbox = async (req, res) => {
             WHERE employers.employer_id = ${req.session.userId} `);
             //applicants.sessionUser = req.session.userName; // menambah data session ke ejs
             
-            console.log(JSON.stringify(applicants))
-            res.render('inbox.ejs', { applicants: applicants });
+            console.log(JSON.stringify(results))
+            res.render('inbox.ejs', { applicants: results });
 
         } catch (err) {
             console.error('Error dalam melakukan query: ', err);
