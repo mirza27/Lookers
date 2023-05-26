@@ -5,21 +5,32 @@ const db = require('../db/db');
 app.set('view engine', 'ejs');
 
 const addJob = async (req, res) => {
-    if(req.method === 'GET'){
+    if (req.method === 'GET') {
         res.render(`addJob.ejs`);
     } else if (req.method === 'POST') {
         const { id, tittle, category, desc, salary_min, salary_max, location, exp } = req.body;
-        let category_id = 0;
-        if(category==='full-time'){
-            category_id=1;
-        }else if(category==='part-time'){
-            category_id=2;
-        }else if(category==='harian'){
-            category_id=3;
-        }else if(category==='remote'){
-            category_id=4;
+        let category_id;
+        switch (category) {
+            case 'Teacher':
+                category_id=1;
+                break;
+            case 'Engineer':
+                category_id=2;
+                break;
+            case 'Chef':
+                category_id=3;
+                break;
+            case 'IT':
+                category_id=4;
+                break;
+            case 'Accountant':
+                category_id=5;
+                break;
+            default:
+                category_id=0;
+                break;
         }
-        
+
         try {
             const is_done = false;
             await db.query(`INSERT INTO jobs VALUES (${id}, ${category_id}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
@@ -33,9 +44,9 @@ const addJob = async (req, res) => {
 }
 
 const addApp = async (req, res) => {
-    if(req.method === 'GET'){
+    if (req.method === 'GET') {
         res.render(`addApp.ejs`);
-    } else if(req.method === 'POST') {
+    } else if (req.method === 'POST') {
         const status = false;
         try {
             await db.query(`INSERT INTO applications VALUES (${req.session.userId}, ${req.body.job_id}, ${status})`);
