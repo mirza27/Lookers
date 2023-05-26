@@ -35,12 +35,12 @@
 
       <ul class="right-menu">
         <li>
-        <li><a href="#">
-            <%= jobs.sessionUser%>
-          </a></li>
-        <a href="#">
-          <i class="fas fa-phone-square"></i>
-        </a>
+          <li><a href="#">
+              <%= jobs.sessionUser%>
+            </a></li>
+          <a href="#">
+            <i class="fas fa-phone-square"></i>
+          </a>
         </li>
       </ul>
     </nav>
@@ -73,8 +73,8 @@
                       <h3>
                         <%= job.tittle %>
                       </h3>
-                      <p>
-                        <%= limitWords(job.desc, 20) %>
+                      <p class="text-limit">
+                        <%= job.desc %>
                       </p>
                       <a href="#">Learn More <i class="fas fa-chevron-right"></i></a>
         </div>
@@ -112,28 +112,6 @@
         </ul>
       </div>
     </footer>
-    <script src="jscoba.js"></script>
-    <script>
-      // Function to limit words
-      function limitWords(text, limit) {
-        // Split the text into an array of words
-        const words = text.split(' ');
-
-        // Slice the array to the specified limit
-        const limitedWords = words.slice(0, limit);
-
-        // Join the limited words back into a string
-        const limitedText = limitedWords.join(' ');
-
-        // Add ellipsis if the original text exceeds the limit
-        if (words.length > limit) {
-          return limitedText + '...';
-        }
-
-        return limitedText;
-      }
-
-    </script>
 </body>
 
 </html>
