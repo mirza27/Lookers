@@ -67,7 +67,7 @@
 <body>
     <div class="add-app">
         <h1>Apply for a Job</h1>
-
+        <% jobs.forEach(function(job) { %>
         <p><strong>Job Details:</strong></p>
         <p><strong>Name:</strong> <%= job.tittle %></p>
         <p><strong>Description:</strong> <%= job.desc %></p>
@@ -79,6 +79,7 @@
 
             <button type="submit">Apply</button>
         </form>
+        <% }); %>
     </div>
 </body>
 
