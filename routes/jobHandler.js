@@ -37,8 +37,11 @@ const addJob = async (req, res) => {
                 try {
                     const is_done = false;
                     await db.query(`INSERT INTO jobs VALUES (${id}, ${category_id}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
-                    //res.send(`<script>alert('Add Job Berhasil!.');</script>`);
-                    res.redirect(`/home/`);
+                    // if(insert){
+                    //     const alert = 'Berhasil Menambahkan Job';
+                    //     res.render('homeHRD.ejs', {alert});
+                    // }
+                    res.redirect('/home');
                 } catch (err) {
                     console.error('Error dalam fungsi addJob: ', err);
                     res.status(500).json({ error: 'Terjadi kesalahan saat menambah job' });
@@ -65,8 +68,11 @@ const addApp = async (req, res) => {
                 const status = false;
                 try {
                     await db.query(`INSERT INTO applications VALUES (${req.session.userId}, ${req.body.job_id}, ${status})`);
-                    res.redirect(`/home`);
-                    //res.send(`<script>alert('Add Aplicant Berhasil!.');</script>`);
+                    // if(insert){
+                    //     const alert = 'Berhasil Menambahkan Job';
+                    //     res.render('addApp.ejs', {alert});
+                    // }
+                    res.redirect('/home');
                 } catch (err) {
                     console.error('Error dalam fungsi addApp: ', err);
                     res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
