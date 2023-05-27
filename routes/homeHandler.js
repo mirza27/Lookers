@@ -20,7 +20,7 @@ const home = async (req, res) => {
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('homeJS.ejs', { jobs: jobs });
+        res.render('home.ejs', { jobs: jobs });
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
