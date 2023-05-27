@@ -57,33 +57,32 @@ const addApp = async (req, res) => {
 
     } else {
         if (req.method === 'GET') {
-            const id = req.body.id;
-            const jobIds = id.map(id => {
-                return id;
-            });
-            try {
-                console.log(jobIds);
-                const job = await db.query(`SELECT * FROM jobs WHERE job_id = ${jobIds}`);
-                res.render(`addApp.ejs`, { job: job });
-            } catch (err) {
-                console.error('Error dalam fungsi addApp: ', err);
-                res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data job' });
-            }
-        } else if (req.method === 'POST') {
-            const status = false;
-            try {
-                await db.query(`INSERT INTO applications VALUES (${req.session.userId}, ${req.body.id}, ${status})`);
-                // if(insert){
-                //     const alert = 'Berhasil Menambahkan Job';
-                //     res.render('addApp.ejs', {alert});
-                // }
-                res.redirect('/home');
-            } catch (err) {
-                console.error('Error dalam fungsi addApp: ', err);
-                res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
-            }
+            //mengambil nilai job_id dari url sebagai parameter SELECT
+            const jobId = req.query.job_id;
+            const id = parseInt(jobId);
+        try {
+            //Mengambil semua data untuk ditampilkan dalam lamaran
+            const job = await db.query(`SELECT * FROM jobs WHERE job_id = ${id}`);
+            res.render(`addApp.ejs`, { job: job });
+        } catch (err) {
+            console.error('Error dalam fungsi addApp: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data job' });
+        }
+    } else if (req.method === 'POST') {
+        const status = false;
+        try {
+            await db.query(`INSERT INTO applications VALUES (${req.session.userId}, ${req.body.id}, ${status})`);
+            // if(insert){
+            //     const alert = 'Berhasil Menambahkan Job';
+            //     res.render('addApp.ejs', {alert});
+            // }
+            res.redirect('/home');
+        } catch (err) {
+            console.error('Error dalam fungsi addApp: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
         }
     }
+}
 
 }
 
