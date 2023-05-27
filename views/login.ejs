@@ -94,36 +94,11 @@
       width: 100%;
       background-color: #ffffff;
       color: #080710;
-      padding: 15px 0;
+      padding: 0 10px;
       font-size: 18px;
       font-weight: 600;
       border-radius: 5px;
       cursor: pointer;
-    }
-
-    .social {
-      margin-top: 30px;
-      display: flex;
-    }
-
-    .social div {
-      width: 50%;
-      border-radius: 1px;
-      padding: 3px 5px 5px 3px;
-      color: #eaf0fb;
-      text-align: center;
-    }
-
-    .social div:hover {
-      color: #8eb0ff;
-    }
-
-    .social .fb {
-      margin-left: 25px;
-    }
-
-    .social i {
-      margin-right: 4px;
     }
   </style>
 </head>
@@ -132,14 +107,22 @@
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
+  
   <form method="POST">
     <h3>Login Here</h3>
-
+    <% if (locals.alert) { %>
+      <script>
+        alert('<%= locals.alert %>');
+      </script>
+    <% } %>
+    
     <label for="username">Username</label>
     <input name="username" type="text" placeholder="Email or Phone" id="username">
-
+    <!-- <p style="color: red;"><%= locals.alertUser || '' %></p> -->
+    
     <label for="password">Password</label>
     <input name="password" type="password" placeholder="Password" id="password">
+    <!-- <p style="color: red;"><%= locals.alertPass || '' %></p> -->
 
     <input type="submit" value="Log In">
     <div class="social">
