@@ -191,3 +191,15 @@ header.sticky .logo{
       border-radius: 4px;
       cursor: pointer;
     }
+
+    .content {
+        min-height: calc(100vh - 200px); /* Tinggi viewport - tinggi footer dan gambar */
+        padding: 20px;
+    }
+        .xbox-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+          }
