@@ -47,6 +47,9 @@ app.post("/home", homeHandler.home);
 
 app.post("/home/search", homeHandler.home); 
 
+app.get("/profil", homeHandler.profil);
+app.post("/profil", homeHandler.profil);
+
 app.get("/home/inbox", inboxHandler.inbox);
 app.post("/home/inbox", inboxHandler.inbox);
 
