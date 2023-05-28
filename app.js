@@ -55,14 +55,13 @@ app.post("/home/inbox", inboxHandler.inbox);
 
 app.get("/home/myApply", inboxHandler.myApply); // daftar lamaran (js)
 
-app.get("/home/myJobs", inboxHandler.myJobs); // loker yang dibuat hrd
-app.post("/home/myJobs", inboxHandler.myJobs);
+app.get("/home/myJobs", jobHandler.myJobs); // loker yang dibuat hrd
+app.post("/home/myJobs", jobHandler.myJobs);
 
 app.get("/home/addJobs", jobHandler.addJob); // menambah loker
 app.post("/home/addJobs", jobHandler.addJob);
 
-app.get("/home/addApp", jobHandler.addApp); // membuat lamaran (js)
-app.post("/home/addApp", jobHandler.addApp);
+app.post("/home/addApp", jobHandler.addApp); // membuat lamaran (js)
 
 // Jalankan server
 app.listen(port, () => {

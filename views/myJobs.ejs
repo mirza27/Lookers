@@ -96,7 +96,11 @@
                   <form method="POST" action="/home/myJobs">
                     <button class="button" name="is_done" value="<%= job.job_id %>" type="submit">Mark as Done</button>
                   </form>
-                <% }%>
+                <% } else if (job.is_done) {%>
+                    <form method="POST" action="/home/myJobs">
+                        <button class="button" name="is_done" value="<%= job.job_id %>" type="submit">Make Active</button>
+                      </form>
+                <% } %>
             </div>
         </li>
         <% }); %>

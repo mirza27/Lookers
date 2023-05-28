@@ -68,8 +68,8 @@
               </div>
               <% if (!jobs.isHrd){%>
               <div class="accept-reject">
-                <form action="/home/addApp" method="GET">
-                    <input type="hidden" name="job_id" value=<%= job.job_id %>/>
+                <form action="/home/addApp" method="POST">
+                    <input type="hidden" name="job_id" value=<%= job.job_id %>>
                     <button class="accept-reject accept" type="submit">Apply</button>
                 </button>
                 </form>

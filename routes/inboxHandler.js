@@ -73,37 +73,8 @@ const myApply = async (req, res) => {
         }
 }
 
-const myJobs = async (req, res) => {
-    if (req.method === 'GET' && !req.session.userId) {
-        return res.redirect('/login'); // jika belum login, redirect ke halaman login
-      
-        } else{
-            if(req.method === 'GET'){
-                try{
-                    const jobs = await db.any(`SELECT jobs.job_id, jobs.tittle, jobs.desc, jobs.salary_min, jobs.salary_max, jobs.location, jobs.exp, categories.name
-                    FROM categories
-                    JOIN jobs ON categories.category_id = jobs.category_id
-                    WHERE jobs.employer_id = ${req.session.userId};`);
-                    res.render(`myJobs.ejs`, { jobs: jobs });
-                }catch(err){
-                    console.error('Error dalam melakukan query: ', err);
-                    res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerjaan' });
-                }
-            }else if(req.method==='POST'){
-                try{
-                    await db.query(`UPDATE jobs SET is_done = true WHERE job_id = ${req.body.is_done}`);
-                    res.redirect(`/home/myJobs`);
-                }catch(err){
-                    console.error('Error dalam melakukan query: ', err);
-                    res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pekerjaan' });
-                }
-            }
-        }
-   
-}
 
 module.exports = {
     inbox,
-    myJobs,
     myApply
 }
