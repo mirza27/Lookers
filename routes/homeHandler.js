@@ -18,7 +18,12 @@ const home = async (req, res) => {
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`SELECT * FROM jobs WHERE is_done = 'false' ORDER BY job_id LIMIT 4`);
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
-        
+        jobs.role = req.session.roleHRD;
+
+        // query untuk ambil data nama lengkap
+        var user = await db.oneOrNone(`SELECT name FROM jobseekers WHERE jobseeker_id = $1`, [req.session.userId]);
+        jobs.fullName  = user.name
+
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('home.ejs', { jobs: jobs });
       } catch (err) {

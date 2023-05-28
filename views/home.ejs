@@ -55,14 +55,14 @@
         <a href="#contact">Settings</a>
       </li>
       <li>
-        <a href="#contact"><strong>My Name</strong></a>
+        <a href="#contact"><strong><%= jobs.sessionUser%></strong></a>
       </li>
     </ul>
   </header>
   <section id="photo" class="banner">
     <!-- Showcase -->
     <div class="welcome-container">
-      <h2>Selamat datang ,<%= jobs.sessionUser%>
+      <h2>Selamat datang, <strong><%= jobs.fullName%></strong>
       </h2>
       <p>Become Succes With Lookers</p>
     </div>
@@ -74,27 +74,35 @@
     <div class="card-list">
       <% jobs.forEach(function(job) { %>
         <div class="card">
-          <div class="card-image">
-            <% if (job.category_id==1){%>
-              <img src="/img/teacher.jpg" alt="" />
-              <%} else if(job.category_id==2){%>
-                <img src="/img/engineer.png" alt="" />
-                <%} else if(job.category_id==3){ %>
-                  <img src="/img/chef.jpg" alt="" />
-                  <%} else if(job.category_id==4){ %>
-                    <img src="/img/it.jpg" alt="" />
-                    <%} else if(job.category_id==5){ %>
-                      <img src="/img/accountant.jpg" alt="" />
-                      <%} %>
+        <div class="card-image">
+        <% if (job.category_id==1){%>
+        <img src="/img/teacher.jpg" alt="" />
+        <%} else if(job.category_id==2){%>
+        <img src="/img/engineer.png" alt="" />
+        <%} else if(job.category_id==3){ %>
+        <img src="/img/chef.jpg" alt="" />
+        <%} else if(job.category_id==4){ %>
+        <img src="/img/it.jpg" alt="" />
+        <%} else if(job.category_id==5){ %>
+        <img src="/img/accountant.jpg" alt="" />
+        <%} %>
           </div>
           <div class="card-content">
             <h2 class="job_title">
               <%= job.tittle %>
             </h2>
-            <p class="company-name">
-              <%= job.desc %>
+            <p >
+             <strong class="salary">Rp <%= job.salary_min %> - <%= job.salary_max %></strong> 
+             <br><%= job.location %>
             </p>
-            <span class="check-detail" onclick="showPopup(1)">Check Detail</span>
+            <span class="pref" onclick="showPopup(1)">Deskripsi</span>
+            <div class="popup" id="popup">
+              <h2 class="title" >Job Detail</h2>
+              <p class="description"">
+                <%= job.desc%>
+              </p>
+              <button class="pref" onclick="hidePopup()">Close</button>
+            </div>
             <form action="/home/addApp" method="GET">
               <input type="hidden" name="job_id" value=<%= job.job_id %>/>
               <button class="apply-button" type="submit">Apply</button>
@@ -115,7 +123,7 @@
       <p>
         Dapatkan pekerjaan dan tawaran sesuai passion dan minat anda, tingkatkan skill anda
       </p>
-      <img src="../public/img/fotor_2023-5-25_2_6_41.png"/>
+      <img src="/img/fotor_2023-5-25_2_6_41.png"/>
       <a href="/home/allJobs" class="btn">
         Cari <i class="fas fa-chevron-right"></i>
       </a>
