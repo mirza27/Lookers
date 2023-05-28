@@ -129,5 +129,18 @@
       <a style="font-size: 10px" href="/register">Register</a>
     </div>
   </form>
+
+  
+  <script>
+    // SAAT LOGOUT
+    // Cek apakah pesan logout ada pada URL query string
+    const params = new URLSearchParams(window.location.search);
+    const logoutMessage = params.get('logout');
+  
+    // Jika pesan logout ada, tampilkan notifikasi pop
+    if (logoutMessage) {
+      alert(logoutMessage);
+    }
+  </script>
 </body>
 </html>
