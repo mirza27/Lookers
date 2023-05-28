@@ -27,6 +27,8 @@ const home = async (req, res) => {
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('homeJS.ejs', { jobs: jobs });
+
+
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
@@ -46,7 +48,7 @@ const home = async (req, res) => {
 
        
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search.ejs', { jobs: jobs });
+        res.render('searchJS.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
@@ -69,6 +71,8 @@ const home = async (req, res) => {
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('homeHRD.ejs', { jobs: jobs });
+
+
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
@@ -87,7 +91,7 @@ const home = async (req, res) => {
           jobs.isHrd = req.session.roleHRD
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('search.ejs', { jobs: jobs });
+        res.render('searchHRD.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
