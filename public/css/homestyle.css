@@ -7,7 +7,7 @@ scroll-behavior: smooth;
 }
 body{
 height: 100%;
-background: #000000;
+background: #303030;
 color: #fff;
 overflow: auto;
 }
@@ -83,7 +83,7 @@ transition: 0.5s;
 }
 header.sticky{
 padding: 10px 20px 10px 100px;
-background: #000000;
+background: #212121;
 }
 header.sticky ul li a{
 color: #fff;
@@ -141,7 +141,7 @@ left: 16px;
   flex-direction: row;
   padding-left: 10px;
   padding-right: 10px;
-  background: #000000;
+  background: #303030;
 }
 
 .card {
@@ -151,8 +151,8 @@ left: 16px;
   width: 22%;
   margin:auto;
   padding: 20px;
-  background-color: #000000;
-  border-color: #fff ;
+  background-color: #424242;
+  /* border-color: #fff ; */
   border-width: 2px;
   color: #fff;
   border-radius: 8px;
@@ -325,7 +325,7 @@ left: 16px;
 
 /*FOOTER*/
 .footer {
-  background-color: #000000;
+  background-color: #212121;
   color: #fff;
   padding: 20px;
   text-align: center;
