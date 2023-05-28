@@ -94,11 +94,11 @@
                 <p>Experience: <%= job.exp %></p>
                 <% if (!job.is_done) { %>
                   <form method="POST" action="/home/myJobs">
-                    <button class="button" name="is_done" value="<%= job.job_id %>" type="submit">Mark as Done</button>
+                    <button class="button" name="job_id" value="<%= job.job_id %>" type="submit">Mark as Done</button>
                   </form>
                 <% } else if (job.is_done) {%>
                     <form method="POST" action="/home/myJobs">
-                        <button class="button" name="is_done" value="<%= job.job_id %>" type="submit">Make Active</button>
+                        <button class="button" name="job_id" value="<%= job.job_id %>" type="submit">Make Active</button>
                       </form>
                 <% } %>
             </div>

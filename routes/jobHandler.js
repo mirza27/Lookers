@@ -73,18 +73,18 @@ const myJobs = async (req, res) => {
                 }
             }else if(req.method==='POST'){
                 try{
-                    console.log(req.body.is_done);
+                    console.log(req.body.job_id);
                     const is_active = await db.any(
-                    `SELECT is_done FROM jobs WHERE employer_id = ${req.session.userId} AND job_id = ${req.body.is_done};`
+                    `SELECT is_done FROM jobs WHERE employer_id = ${req.session.userId} AND job_id = ${req.body.job_id};`
                     )
                     console.log(is_active);
-                    if(!is_active.is_done) { // jika masih aktif
+                    if(is_active.is_done == false) { // jika masih aktif
                         // matikan
-                        await db.query(`UPDATE jobs SET is_done = true WHERE job_id = ${req.body.is_done}`);
-                        console.log("ini 1 jalan")
+                        await db.query(`UPDATE jobs SET is_done = true WHERE job_id = ${req.body.job_id}`);
+                        
                     } else {// jika sudah mati 
-                        await db.query(`UPDATE jobs SET is_done = false WHERE job_id = ${req.body.is_done}`);
-                        console.log("ini 2 jalan")
+                        await db.query(`UPDATE jobs SET is_done = false WHERE job_id = ${req.body.job_id}`);
+                        
                     }
 
                     res.redirect(`/home/myJobs`);
