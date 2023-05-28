@@ -232,6 +232,10 @@ left: 16px;
   cursor: pointer;
 }
 
+.apply-button:hover{
+  background-color: black;
+}
+
 /* Popup */
 .popup {
   position: fixed;
