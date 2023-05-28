@@ -103,7 +103,7 @@ const home = async (req, res) => {
 
 
 const profil = async (req, res) => {
-  if (req.method === 'GET' && req.session.roleHRD) {
+  if (req.method === 'GET' && !req.session.roleHRD) {
     try {
       // Menjalankan query untuk mendapatkan daftar pelamar
       const query = `SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseekers_detail ON jobseekers.jobseeker_id = jobseekers.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`;
@@ -114,10 +114,8 @@ const profil = async (req, res) => {
       console.error('Error dalam melakukan query: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
     }
-  } else if (req.method === 'POST' && req.session.roleHRD) {
-    const status = req.body.status;
-    await db.query('UPDATE  SET status = ${status} WHERE application_Id = ${rows.application_Id}');
-    res.render('inbox.ejs');
+  } else if (req.method === 'POST' && !req.session.roleHRD) {
+    
   } else if (req.method === 'GET' && !req.session.roleHRD) {
 
   }
