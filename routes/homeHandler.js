@@ -103,24 +103,72 @@ const home = async (req, res) => {
 
 
 const profil = async (req, res) => {
-  if (req.method === 'GET' && !req.session.roleHRD) {
+
+    //-------------- JIKA SEBAGAI JS--------------
+    if (req.method === 'GET' && !req.session.roleHRD) {
     try {
       // Menjalankan query untuk mendapatkan daftar pelamar
-      const query = `SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseekers_detail ON jobseekers.jobseeker_id = jobseekers.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`;
-      const profil = await db.query(query);
+      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
-      res.render('profile.ejs', { profil });
+      res.render('profile.ejs', { query });
     } catch (err) {
-      console.error('Error dalam melakukan query: ', err);
+      console.error('Error dalam get profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
     }
   } else if (req.method === 'POST' && !req.session.roleHRD) {
-    
-  } else if (req.method === 'GET' && !req.session.roleHRD) {
+    //mengolah input
+    const { username, email, password, name, contact, address, gender, experience, education, exp } = req.body;
+    let is_female = true;
+    if(gender=='male'){
+      is_female = false;
+    }
+    try{
+      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
+      //mengecek apa yang diubah kemudian mengubah data sesuai tabel
+      if( query.username != username || query.email != email || query.password != password ){
+        await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
+      }else if( query.name != name || query.contact_number != contact || query.address != address || query.is_female != is_female ){
+        await db.query(`UPDATE jobseekers SET name = ${name}, contact_number = ${contact}, address = ${address}, is_female = ${is_female} WHERE user_id = ${req.session.userId}`);
+      }else if( query.experience != experience || query.education != education || query.exp != exp ){
+        await db.query(`UPDATE jobseeker_detail SET experience = ${experience}, education = ${education}, exp = ${exp} WHERE user_id = ${req.session.userId}`);
+      }
+      
+      let alert = 'Data berhasil diubah!';
+      res.render('profile.ejs', { alert });
+    }catch(err){
+      console.error('Error dalam post profil: ', err);
+      res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pelamar' });
+    }
+
+    //-------------- JIKA SEBAGAI HRD--------------
+  } else if (req.method === 'GET' && req.session.roleHRD) {
+    try{
+      const query = await db.query(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
+
+      res.render('profile.ejs', {query});
+    }catch(err){
+      console.error('Error dalam get profil: ', err);
+      res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerja' });
+    }
+  } else if (req.method==='POST' && req.session.roleHRD) {
+    const { username, email, password, name, contact, address, desc } = req.body;
+    try{
+      //mengecek apa yang diubah kemudian mengubah data sesuai tabel
+      if( query.username != username || query.email != email || query.password != password ){
+        await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
+      }else if( query.company_name != name || query.contact_number != contact || query.address != address || query.company_desc != desc ){
+        await db.query(`UPDATE employers SET company_name = ${name}, contact_number = ${contact}, address = ${address}, company_desc = ${desc} WHERE user_id = ${req.session.userId}`);
+      }
+
+      let alert = 'Data berhasil diubah!';
+      res.render('profile.ejs', { alert });
+    }catch(err){
+      console.error('Error dalam post profil: ', err);
+      res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pekerja' });
+    }
   }
 }
-
 
 module.exports = {
   home,
