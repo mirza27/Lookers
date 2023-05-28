@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <aside id="sidebar" class="nano">
+        <div class="nano-content">
+            <div class="logo-container"><span class="logo glyphicon glyphicon-envelope"></span>Profile</div>
+            <menu class="menu-segment">
+                <ul>
+                    <li><a href="#" onclick="selectOverview(this)">Profile</a></li>
+                    <li><a href="#" onclick="selectOverview(this)">Details</a></li>
+                    <li><a href="#" onclick="selectOverview(this)">Account</a></li>
+                    <div class="separator"></div>
+                    <li><a href="#">Logout</a></li>
+                    <div class="separator" style="margin-top: 276px;"></div>
+                    <li><a href="#" style="margin-top: -20px;">Back</a></li>
+                </ul>
+            </menu>
+            <div class="bottom-padding"></div>
+        </div>
+    </aside>
+    <main id="main">
+        <div class="overlay"></div>
+        <div class="overview profileOverview" style="display:none;">
+            <header class="header">
+                <h1 class="page-title">Profile</h1>
+            </header>
+            <label>Name</label>
+            <input name="name" type="text" value="">
+            <label>Contact number</label>
+            <input name="Contact" type="text" value="">
+            <label>Address</label>
+            <input name="address" type="text" value="">
+            <label>Gender</label>
+            <input name="gender" type="text" value="">
+            <button class="apply-button" type="submit">Apply Change</button>
+        </div>
+        <div class="overview detailsOverview" style="display:none;">
+            <header class="header">
+                <h1 class="page-title">Details</h1>
+            </header>
+            <label>Experience</label>
+            <input name="experience" type="text" value="">
+            <label>Education</label>
+            <input name="education" type="text" value="">
+            <label>Exp</label>
+            <input name="exp" type="text" value="">
+            <button class="apply-button" type="submit">Apply Change</button>
+        </div>
+        <div class="overview accountOverview" style="display:none;">
+            <header class="header">
+                <h1 class="page-title">Account</h1>
+            </header>
+            <label>Username</label>
+            <input name="username" type="text" value="">
+            <label>Email</label>
+            <input name="email" type="text" value="">
+            <label>Password</label>
+            <input name="password" type="password" value="">
+            <button class="apply-button" type="submit">Apply Change</button>
+        </div>
+
+        <script>
+            function selectOverview(element) {
+                var overviewElements = document.getElementsByClassName('overview');
+                Array.from(overviewElements).forEach(function (overviewElement) {
+                    overviewElement.classList.remove('selected');
+                    overviewElement.style.display = 'none';
+                });
+
+                var selectedOverviewId = element.getAttribute('href').substring(1) + 'Overview';
+                var selectedOverview = document.getElementById(selectedOverviewId);
+                if (selectedOverview) {
+                    selectedOverview.classList.add('selected');
+                    selectedOverview.style.display = 'block';
+                }
+
+                return selectedOverview;
+            }
+
+            if (document.getElementsByClassName('overview').length > 0) {
+                selectOverview(document.querySelector('.overview a'));
+            }
+
+            var overviewLinks = document.querySelectorAll('.overview a');
+            overviewLinks.forEach(function (linkElement) {
+                linkElement.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    selectOverview(this);
+                });
+            });
+        </script>
+    </main>
+</body>
+
+</html>
