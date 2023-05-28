@@ -16,7 +16,8 @@ const home = async (req, res) => {
       console.log(req.session.userId); // cetak id siapa yang login.
       try {
         // Lakukan query ke database untuk mendapatkan data card
-        const jobs = await db.any(`SELECT * FROM jobs WHERE is_done = 'false' ORDER BY job_id LIMIT 4`);
+        const jobs = await db.any(`SELECT * FROM jobs
+        JOIN employers ON employers.employer_id = jobs.employer_id WHERE is_done = 'false' ORDER BY job_id LIMIT 4`);
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
         jobs.role = req.session.roleHRD;
 
@@ -25,7 +26,7 @@ const home = async (req, res) => {
         jobs.fullName  = user.name
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('home.ejs', { jobs: jobs });
+        res.render('homeJS.ejs', { jobs: jobs });
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
         res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data jobs' });
@@ -61,6 +62,10 @@ const home = async (req, res) => {
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`SELECT * FROM jobs WHERE employer_id = ${req.session.userId} LIMIT 4`);
         jobs.sessionUser = req.session.userName; // menambah data session ke ejs
+        
+        // query untuk ambil data nama lengkap
+        var company = await db.oneOrNone(`SELECT company_name FROM employers WHERE employer_id = $1`, [req.session.userId]);
+        jobs.company  = company.company_name
 
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('homeHRD.ejs', { jobs: jobs });
