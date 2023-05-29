@@ -58,20 +58,20 @@ const userRegister = async (req, res) => {
     res.render('register.ejs');
   }
   else if (req.method === 'POST') {
-    const { username, email, password, role } = req.body;
+    const { usernameR, emailR, passwordR, role } = req.body;
 
     // Periksa apakah username sudah ada di database
-    const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [username]);
+    const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [usernameR]);
     if (cek) {
       //Mengirim alert jika username sudah digunakan
       let alert = 'Username Sudah Digunakan!';
       res.render('login.ejs', { alert });
     } else {
       try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(passwordR, 10);
         // Tambahkan user baru ke database
-        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [username, email, hashedPassword, role]);
-        const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [username]);
+        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [usernameR, emailR, hashedPassword, role]);
+        const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [usernameR]);
 
         var id = parseInt(user_id.user_id); // id sebagai param
 
