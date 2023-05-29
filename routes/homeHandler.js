@@ -108,7 +108,7 @@ const profil = async (req, res) => {
     if (req.method === 'GET' && !req.session.roleHRD) {
     try {
       // Menjalankan query untuk mendapatkan daftar pelamar
-      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
+      const query = await db.oneOrNone(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
       res.render('profiljs.ejs', { query });
     } catch (err) {
@@ -123,7 +123,7 @@ const profil = async (req, res) => {
       is_female = false;
     }
     try{
-      const query = await db.oneOrNone(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
+      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
       //mengecek apa yang diubah kemudian mengubah data sesuai tabel
       if( query.username != username || query.email != email || query.password != password ){
@@ -135,7 +135,7 @@ const profil = async (req, res) => {
       }
       
       let alert = 'Data berhasil diubah!';
-      res.render('profile.ejs', { alert });
+      res.render('profiljs.ejs', { alert });
     }catch(err){
       console.error('Error dalam post profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pelamar' });
