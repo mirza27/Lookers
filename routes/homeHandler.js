@@ -110,7 +110,7 @@ const profil = async (req, res) => {
       // Menjalankan query untuk mendapatkan daftar pelamar
       const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
-      res.render('profile.ejs', { query });
+      res.render('profiljs.ejs', { query });
     } catch (err) {
       console.error('Error dalam get profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
@@ -123,7 +123,7 @@ const profil = async (req, res) => {
       is_female = false;
     }
     try{
-      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
+      const query = await db.oneOrNone(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
       //mengecek apa yang diubah kemudian mengubah data sesuai tabel
       if( query.username != username || query.email != email || query.password != password ){
@@ -144,9 +144,8 @@ const profil = async (req, res) => {
     //-------------- JIKA SEBAGAI HRD--------------
   } else if (req.method === 'GET' && req.session.roleHRD) {
     try{
-      const query = await db.query(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
-
-      res.render('profile.ejs', {query});
+      const user = await db.oneOrNone(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
+      res.render('profilhrd.ejs', {user:user});
     }catch(err){
       console.error('Error dalam get profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerja' });
@@ -155,6 +154,8 @@ const profil = async (req, res) => {
     const { username, email, password, name, contact, address, desc } = req.body;
     try{
       //mengecek apa yang diubah kemudian mengubah data sesuai tabel
+      const user = await db.query(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
+
       if( query.username != username || query.email != email || query.password != password ){
         await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
       }else if( query.company_name != name || query.contact_number != contact || query.address != address || query.company_desc != desc ){
@@ -162,7 +163,7 @@ const profil = async (req, res) => {
       }
 
       let alert = 'Data berhasil diubah!';
-      res.render('profile.ejs', { alert });
+      res.render('profilhrd.ejs', { alert });
     }catch(err){
       console.error('Error dalam post profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pekerja' });
