@@ -1,109 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Design by foolishdeveloper.com -->
-    <title>Registrasi</title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/css/regis2.css" />
-    <!--Stylesheet-->
-    <style media="screen">
-      *,
-      *:before,
-      *:after {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multistep form</title>
+    <link rel="stylesheet" href="/css/regisnew.css">
 
-      .form-group {
-        display: flex;
-        align-items: center;
-      }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-      .form-group label {
-        flex: 1;
-      }
+<body>
 
-      .form-group input {
-        flex: 2;
-      }
+    <div class="container">
+        <header>Signup Form</header>
+        <div class="progress-bar">
+            <div class="step">
+                <p>Name</p>
+                <div class="bullet" id="hrd">
+                    <span>1</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>Contact</p>
+                <div class="bullet">
+                    <span>2</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+        </div>
+        <div class="form-outer">
+            <form action="/register/hrd" method="POST">
+                <div class="page slide-page">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        <div class="label">Company Name</div>
+                        <input type="text" name="name" required />
+                    </div>
+                    <div class="field">
+                        <div class="label">Company Desc</div>
+                        <input type="text" name="name" required />
+                    </div>
+                    <div class="field">
+                        <button class="firstNext next">Next</button>
+                    </div>
+                </div>
 
-      button {
-        background-color: #ffffff;
-        color: #080710;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      button:hover {
-        background-color: #4caf4f00;
-        color: #ffffff;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="video-background">
-      <video autoplay muted loop>
-        <source
-          src="../views/Falling Stars Motion Background, Night Sky Loop Background Video - Free Stock Footage.mp4"
-          type="video/mp4"
-        />
-      </video>
+                <div class="page">
+                    <div class="title">Contact Info:</div>
+                    <div class="field">
+                        <div class="label">Contact Number</div>
+                        <input type="text" name="contact" required />
+                    </div>
+                    <div class="field">
+                        <div class="label">Address</div>
+                        <input type="text" name="address" required />
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-1 prev">Previous</button>
+                        <button class="submit" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- Konten lainnya di sini -->
-    <div class="parallax"></div>
+    <script src="register.js"></script>
+</body>
 
-    <div class="background">
-      <div class="shape"></div>
-      <div class="shape"></div>
-    </div>
-    <form>
-      <h1 style="padding-bottom: 40px">Register as Employee</h1>
-
-      <div class="form-group">
-        <label for="email">Company Name</label>
-        <input type="text" placeholder="Company Name" id="email" name="companyName"/>
-      </div>
-
-      <div class="form-group">
-        <label for="contact">Address</label>
-        <input type="text" placeholder="Address" id="password" name="address"/>
-      </div>
-      
-      <div class="form-group">
-        <label for="contact">Contact</label>
-        <input type="text" placeholder="Contact" id="password" name="contact"/>
-      </div>
-      
-      <div class="form-group">
-        <label for="contact">Company Description</label>
-        <input type="text" placeholder="Company Description" id="contact" name="companyDesc"/>
-      </div>
-
-      <!-- <div class="form-group">
-        <label for="company">Company Name</label>
-        <input type="text" placeholder="Company Name" id="company" />
-      </div>
-
-      <div class="form-group">
-        <label for="description">Company Description</label>
-        <input type="text" placeholder="Company Description" id="description" />
-      </div> -->
-
-      <button type="submit">Submit</button>
-      <div class="social"></div>
-    </form>
-  </body>
 </html>
