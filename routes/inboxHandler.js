@@ -13,13 +13,13 @@ const inbox = async (req, res) => {
                 try {
                     
                     // Menjalankan query untuk mendapatkan daftar pelamar
-                    const results = await db.any( `SELECT jobs.tittle, jobseekers.jobseeker_id, jobseekers.name,  jobseeker_detail."exp", experience, education FROM jobseeker_detail
+                    const results = await db.any( `SELECT jobs.tittle, jobseekers.jobseeker_id, jobseekers.name, applications.application_id, jobseeker_detail."exp", experience, education FROM jobseeker_detail
                     JOIN jobseekers ON jobseekers.jobseeker_id =  jobseeker_detail.jobseeker_id
                     JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
                     JOIN jobs ON applications.job_id = jobs.job_id
                     JOIN employers ON jobs.employer_id = employers.employer_id 
                     WHERE employers.employer_id = ${req.session.userId} AND applications.status = 'waiting';`);
-                    //applicants.sessionUser = req.session.userName; // menambah data session ke ejs 
+                    results.sessionUser = req.session.userName; // menambah data session ke ejs 
                    
                     res.render('inbox.ejs', { applicants: results });
         

@@ -136,7 +136,7 @@ const acceptApp = async (req, res) => {
         if (sAcc){ // jika diterima
             try{
                 await db.query(`UPDATE applications SET status = 'accepted' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
-
+                console.log("yang dditerima id :", sAcc);
             }catch (err) {
                 console.error('Error dalam fungsi addApp: ', err);
                 res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
@@ -145,7 +145,7 @@ const acceptApp = async (req, res) => {
         } else if (sRej){ // jika ditolak
             try{
                 await db.query(`UPDATE applications SET status = 'rejected' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
-
+                console.log("yang ditolak id :", sRej);
             }catch (err) {
                 console.error('Error dalam fungsi addApp: ', err);
                 res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });

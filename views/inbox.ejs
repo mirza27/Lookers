@@ -163,9 +163,9 @@
                     </div>
                     <td>
                       <div class="col mb-3">
-                        <form action="/home/acceptApp">
-                            <button type="submit" class="btn btn-primary" name="sAcc" value="<% applicant.jobseeker_id %>">Accept</option>
-                            <button type="submit" class="btn btn-warning" name="sRej" value="<% applicant.jobseeker_id %>">Reject</button>
+                        <form action="/home/acceptApp" method="POST">
+                            <button type="submit" class="btn btn-primary" name="sAcc" value=<%= applicant.application_id %>>Accept</option>
+                            <button type="submit" class="btn btn-warning" name="sRej" value=<%= applicant.application_id %>>Reject</button>
                         </form>
                       </div>
                     </td>
