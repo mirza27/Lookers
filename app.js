@@ -10,6 +10,7 @@ const port = 3000;
 // SET ENGINE EJS
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+app.use(express.static("vendor"));
 
 // SET PARSER JSON
 app.use(express.urlencoded({ extended: false }));
