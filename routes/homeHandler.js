@@ -40,7 +40,7 @@ const home = async (req, res) => {
 
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`
-        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max , category_id, jobs.desc FROM jobs 
+        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max, exp, category_id, jobs.desc FROM jobs 
         JOIN employers ON employers.employer_id = jobs.employer_id
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
@@ -84,7 +84,7 @@ const home = async (req, res) => {
 
         // Lakukan query ke database untuk mendapatkan data card
         const jobs = await db.any(`
-        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max , category_id, jobs.desc FROM jobs 
+        SELECT job_id, employers.company_name, jobs.location, tittle,  salary_min, salary_max, exp, category_id, jobs.desc FROM jobs 
         JOIN employers ON employers.employer_id = jobs.employer_id
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
