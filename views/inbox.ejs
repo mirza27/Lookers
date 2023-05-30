@@ -131,7 +131,7 @@
               <th scope="col">Job</th>
               <th scope="col">Jobseeker's</th>
               <th scope="col">Education</th>
-              <th scope="col">Detail</th>
+              <th scope="col">Experience</th>
               <th scope="col">Status</th>
             </tr>
           </thead>
@@ -150,13 +150,7 @@
                     <td>
                       <%= applicant.education %>
                     </td>
-                    <td><button class="btn btn-link">Lebih Lengkap</button></td>
-                    <td>
-                      <div class="col mb-3">
-                            <button type="submit" class="btn btn-primary" name="sAcc" value="<% applicant.jobseeker_id %>">Accept</option>
-                            <button type="submit" class="btn btn-warning" name="sRej" value="<% applicant.jobseeker_id %>">Reject</button>
-                      </div>
-                    </td>
+                    <td><button class="btn btn-link" onclick="showPopup()">Lebih Lengkap</button></td>
                     <div class="popup" id="popup">
                       <h2 class="title" style="color: black;">Experience</h2>
                       <p class="description" style="color: black;"><strong>Experience:</strong>
@@ -167,6 +161,15 @@
                       </p>
                       <button class="pref" onclick="hidePopup()">Close</button>
                     </div>
+                    <td>
+                      <div class="col mb-3">
+                        <form action="/home/acceptApp">
+                            <button type="submit" class="btn btn-primary" name="sAcc" value="<% applicant.jobseeker_id %>">Accept</option>
+                            <button type="submit" class="btn btn-warning" name="sRej" value="<% applicant.jobseeker_id %>">Reject</button>
+                        </form>
+                      </div>
+                    </td>
+                    
                   </tr>
                   <% });} %>
           </tbody>
@@ -197,6 +200,22 @@
   <!-- End Footer -->
 </body>
 <!-- Vendor JS Files -->
+<script>
+  const popup = document.getElementById("popup");
+    const backdrop = document.getElementById("backdrop");
+
+    function showPopup() {
+      popup.style.display = "block";
+      backdrop.style.display = "block";
+      document.body.style.overflow = "hidden";
+    }
+
+    function hidePopup() {
+      popup.style.display = "none";
+      backdrop.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+</script>
 <script src="/apexcharts/apexcharts.min.js"></script>
 <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/chart.js/chart.umd.js"></script>
