@@ -11,12 +11,33 @@ const addJob = async (req, res) => {
         if (req.method === 'GET') {
             res.render(`addJob.ejs`);
         } else if (req.method === 'POST') {
-            const { tittle, category, desc, salary_min, salary_max, address, exp } = req.body;
+            const { id, tittle, category, desc, salary_min, salary_max, location, exp } = req.body;
+            let category_id;
+            switch (category) {
+                case 'Teacher':
+                    category_id = 1;
+                    break;
+                case 'Engineer':
+                    category_id = 2;
+                    break;
+                case 'Chef':
+                    category_id = 3;
+                    break;
+                case 'IT':
+                    category_id = 4;
+                    break;
+                case 'Accountant':
+                    category_id = 5;
+                    break;
+                default:
+                    category_id = 0;
+                    break;
+            }
 
             try {
                 // query membuat job baru
                 const is_done = false;
-                await db.query(`INSERT INTO jobs VALUES (${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${address}', ${exp}, '${is_done}')`);
+                await db.query(`INSERT INTO jobs VALUES (${id}, ${category_id}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
 
                 res.redirect('/home/myJobs'); // direct ke myjobs
 
