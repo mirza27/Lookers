@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+</head>
+<link rel="stylesheet" href="/css/style.css" />
+<!-- Favicons -->
+<link href="/img/favicon.png" rel="icon" />
+<link href="/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect" />
+<link
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+  rel="stylesheet" />
+
+<!-- Vendor CSS Files -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+<link href="/boxicons/css/boxicons.min.css" rel="stylesheet" />
+<link href="/quill/quill.snow.css" rel="stylesheet" />
+<link href="/quill/quill.bubble.css" rel="stylesheet" />
+<link href="/remixicon/remixicon.css" rel="stylesheet" />
+<link href="/simple-datatables/style.css" rel="stylesheet" />
+
+<!-- Template Main CSS File -->
+<link href="/css/style.css" rel="stylesheet" />
+<body>
+  <!-- ======= Header ======= -->
+  <header class="header fixed-top d-flex align-items-center" id="header">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center" href="index.html"
+        ><img alt="" src="/img/logo.png" />
+        <span class="d-none d-lg-block">NiceAdmin</span></a
+      >
+      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+    </div>
+    <!-- End Logo -->
+    <div class="search-bar">
+      <form
+        action="#"
+        class="search-form d-flex align-items-center"
+        method="post"
+      >
+        <input
+          name="query"
+          placeholder="Search"
+          title="Enter search keyword"
+          type="text"
+        />
+        <button title="Search" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+    <!-- End Search Icon-->
+    <!-- End Search Bar -->
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/inbox">Inbox</a>
+    </div>
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/myJobs">My Jobs</a>
+    </div>
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/addJobs">Add Jobs</a>
+    </div>
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle" href="/profil"
+            ><i class="bi bi-search"></i
+          ></a>
+        </li>
+        <li class="nav-item dropdown pe-3">
+          <a
+            class="nav-link nav-profile d-flex align-items-center pe-0"
+            data-bs-toggle="dropdown"
+            href="#"
+            ><img
+              alt="Profile"
+              class="rounded-circle"
+              src="/img/user-image-with-black-background.png"
+            />
+            <span class="d-none d-md-block ps-2">My Profile</span></a
+          >
+        </li>
+        <!-- End Profile Iamge Icon -->
+        <!-- End Profile Nav -->
+      </ul>
+    </nav>
+    <!-- End Icons Navigation -->
+  </header>
+  <!-- End Header -->
+
+  <div style="margin-top: 40px;"></div>
+  <!-- Recent Sales -->
+  <div class="col-12">
+    <div class="card recent-sales overflow-auto">
+
+      <div class="filter">
+        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+          <li class="dropdown-header text-start">
+            <h6>Filter</h6>
+          </li>
+
+          <li><a class="dropdown-item" href="#">Today</a></li>
+          <li><a class="dropdown-item" href="#">This Month</a></li>
+          <li><a class="dropdown-item" href="#">This Year</a></li>
+        </ul>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+        <table class="table table-borderless datatable">
+          <thead>
+            <tr>
+              <th scope="col">Job Title</th>
+              <th scope="col">Company Name</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (!applicants) { %>
+              <p>Tidak ada pelamar saat ini.</p>
+              <% } else { %>
+                <% applicants.forEach(function (applicant){ %>
+                  <tr>
+                    <th scope="row">
+                      <%= applicant.tittle %>
+                    </th>
+                    <td>
+                      <%= applicant.company_name %>
+                    </td>
+                    <% if(applicant.status==='accepted'){ %>
+                    <td><span class="badge bg-success">Accepted</span></td>
+                    <% }else if(applicant.status==='rejected'){ %>
+                    <td><span class="badge bg-danger">Rejected</span></td>
+                    <% }else if(applicant.status==='waiting'){ %>
+                    <td><span class="badge bg-primary">Waiting</span></td>
+                    <% } %>
+                  </tr>
+                  <% });} %>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div><!-- End Recent Sales -->
+
+
+  <!-- End Profile Edit Form -->
+  </div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer>
+  <!-- End Footer -->
+</body>
+<!-- Vendor JS Files -->
+<script src="/apexcharts/apexcharts.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/chart.js/chart.umd.js"></script>
+<script src="/echarts/echarts.min.js"></script>
+<script src="/quill/quill.min.js"></script>
+<script src="/simple-datatables/simple-datatables.js"></script>
+<script src="/tinymce/tinymce.min.js"></script>
+<script src="/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/js/main.js"></script>
+
+</html>
