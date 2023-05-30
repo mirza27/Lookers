@@ -122,8 +122,43 @@ const addApp = async (req, res) => {
     }
 }
 
+// MENERIMA LAMARAN
+const acceptApp = async (req, res) => {
+    if (req.method === 'POST' && !req.session.userId) {
+        return res.redirect('/login'); // jika belum login, redirect ke halaman login
+
+    } else{
+        const {sAcc, sRej} =  req.body;
+        console.log("acc ", sAcc);
+        console.log("rej ", sRej);
+        
+        // apakah lamaran diterima / ditolak
+        if (sAcc){ // jika diterima
+            try{
+                await db.query(`UPDATE applications SET status = 'accepted' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
+
+            }catch (err) {
+                console.error('Error dalam fungsi addApp: ', err);
+                res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
+            }
+
+        } else if (sRej){ // jika ditolak
+            try{
+                await db.query(`UPDATE applications SET status = 'rejected' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
+
+            }catch (err) {
+                console.error('Error dalam fungsi addApp: ', err);
+                res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
+            }
+        }
+
+        res.redirect('/home/inbox'); // load ulang inbox
+        }
+    }
+
 module.exports = {
     addJob,
     addApp,
-    myJobs
+    myJobs,
+    acceptApp
 }
