@@ -125,7 +125,7 @@
     >
       <div class="container" style="padding-bottom: 10px">
         <div class="d-sm-flex align-items-center justify-content-between">
-          <div>
+          <% jobs.forEach(function(job{ %>
             <div class="card" style="width: 18rem">
               <img
                 alt="..."
@@ -139,34 +139,8 @@
                 </p>
               </div>
             </div>
-          </div>
-          <div class="card" style="width: 18rem">
-            <img
-              alt="..."
-              class="card-img-top"
-              src="img/fotor_2023-5-25_2_6_41.png"
-            />
-            <div class="card-body">
-              <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card" style="width: 18rem">
-          <img
-            alt="..."
-            class="card-img-top"
-            src="img/fotor_2023-5-25_2_6_41.png"
-          />
-          <div class="card-body">
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-          </div>
-        </div>
+          <% })) %>
+      </div>
       </div>
     </section>
     <section class="jobs2" style="background-color: aliceblue">
