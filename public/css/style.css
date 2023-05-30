@@ -454,6 +454,21 @@ h6 {
   color: #012970;
 }
 
+.job-application-status {
+  padding-left: 25px;
+}
+
+.job-application-status a {
+  color: #000; /* Set the initial color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s; /* Add transition for smooth color change */
+}
+
+.job-application-status a:hover {
+  color: #0015f8; /* Set the hover color */
+  text-decoration: underline; /* Add underline on hover */
+}
+
 /*--------------------------------------------------------------
 # Header Nav
 --------------------------------------------------------------*/
