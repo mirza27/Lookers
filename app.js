@@ -66,6 +66,8 @@ app.post("/home/addApp", jobHandler.addApp); // membuat lamaran (js)
 
 app.post("/home/acceptApp", jobHandler.acceptApp); // menerima / menolak lamaran
 
+app.post("/home/deleteApp", inboxHandler.delApp); // menghapus lamaran terkirim
+
 // Jalankan server
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);

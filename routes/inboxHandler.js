@@ -58,6 +58,22 @@ const myApply = async (req, res) => {
         }
 }
 
+const delApp = async (req, res) => {
+    if (req.method === 'GET' && !req.session.userId) {
+        return res.redirect('/login'); // jika belum login, redirect ke halaman login
+    }else{
+        const { app_id } = req.body;
+
+        try{
+            await db.query(`DELETE FROM applications WHERE application_id = ($1)`, [app_id])
+        } 
+        catch (err) {
+            console.error('Error dalam fungsi addApp: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat menghapus lamaran' });
+        }
+    }
+}
+
 
 module.exports = {
     inbox,
