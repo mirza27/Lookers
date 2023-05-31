@@ -78,7 +78,7 @@
 
 
     <!-- Profile Edit Form -->
-    <form>
+    <form method="POST">
 
         <div class="row mb-3">
             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
@@ -90,14 +90,14 @@
         <div style="margin: 50px 0px 0px 50px;" class="row mb-3">
             <label for="fullName" class="col-md-1 col-lg-1 col-form-label">Full Name</label>
             <div class="col-md-8 col-lg-9">
-                <input name="nama" type="text" class="form-control" id="fullName" value="<%= user.name%>" />
+                <input name="name" type="text" class="form-control" id="fullName" value="<%= user.name%>" />
             </div>
         </div>
 
         <div style="margin: 50px 0px 0px 50px;" style="margin: 50px 0px 0px 50px;" class="row mb-3">
             <label for="about" class="col-md-1 col-lg-1 col-form-label">Experience</label>
             <div class="col-md-8 col-lg-9">
-                <textarea name="experince" class="form-control" id="about"
+                <textarea name="experience" class="form-control" id="about"
                     style="height: 100px" value="<%= user.experience %>"><%= user.experience %></textarea>
             </div>
         </div>

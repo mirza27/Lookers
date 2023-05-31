@@ -124,16 +124,25 @@ const profil = async (req, res) => {
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
     }
   } else if (req.method === 'POST' && !req.session.roleHRD) {
-    //mengolah input
-    const { username, email, password, name, contact, address, gender, experience, education, exp } = req.body;
-    let is_female = true;
-    if(gender=='male'){
-      is_female = false;
-    }
-    try{
-      const query = await db.query(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
 
+    //mengolah input
+    const { email, name, contact, address, experience, education, exp } = req.body;
+    
+    console.log("nama", name)
+    console.log("nama", email)
+    console.log("nama", address)
+    console.log("nama", contact)
+    console.log("nama", exp)
+    console.log("nama", education)
+    console.log("nama", experience)
+
+    try{
+
+      await db.query(`UPDATE users SET email = '${email}' WHERE user_id = ${req.session.userId}`)
+      await db.query(`UPDATE jobseekers SET name = '${name}', contact_number = '${contact}', address = '${address}' WHERE jobseeker_id = ${req.session.userId}`);
+      await db.query(`UPDATE jobseeker_detail SET experience = '${experience}', education = '${education}', exp = '${exp}' WHERE jobseeker_id = ${req.session.userId}`)
       //mengecek apa yang diubah kemudian mengubah data sesuai tabel
+      /*
       if( query.username != username || query.email != email || query.password != password ){
         await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
       }else if( query.name != name || query.contact_number != contact || query.address != address || query.is_female != is_female ){
@@ -141,14 +150,18 @@ const profil = async (req, res) => {
       }else if( query.experience != experience || query.education != education || query.exp != exp ){
         await db.query(`UPDATE jobseeker_detail SET experience = ${experience}, education = ${education}, exp = ${exp} WHERE user_id = ${req.session.userId}`);
       }
+      */
       
+
       let alert = 'Data berhasil diubah!';
-      res.render('profiljs.ejs', { alert });
+      
 
     }catch(err){
       console.error('Error dalam post profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pelamar' });
     }
+
+    res.redirect("/home/profile")
 
     //-------------- JIKA SEBAGAI HRD--------------
   } else if (req.method === 'GET' && req.session.roleHRD) {
