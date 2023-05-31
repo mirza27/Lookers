@@ -128,7 +128,7 @@
                 <%} else if(job.category_id==5){ %>
                 <img class="card-img-top" src="/img/accountant.jpg" alt="" />
                 <%} %>
-              <div class="card-body">
+              <div class="card-body d-flex justify-content-start flex-column">
                 <h2 class="job_title">
                   <%= job.tittle %>
                 </h2>
@@ -138,7 +138,13 @@
                     <br><%= job.location %>
                   </p>
                 </p>
+                <form  class="d-flexflex-column justify-content-center pe-5 me-4" method="POST" action="/home/addApp">
+                  <input style="display: none;" name="job_id" value="<%= job.job_id %>"/>
+                  <button type="submit" class="btn btn-primary me-4">Apply</button>
+                </form>
               </div>
+              
+              
             </div>
           <% }) %>
       </div>
