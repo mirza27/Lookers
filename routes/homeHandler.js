@@ -45,9 +45,8 @@ const home = async (req, res) => {
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
         
-          console.log(searchTerm);
-          console.log(jobs);
-       
+        jobs.sessionUser = req.session.userName;
+
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('searchJSfix.ejs', { jobs: jobs });
 
@@ -91,6 +90,8 @@ const home = async (req, res) => {
           `);
           jobs.isHrd = req.session.roleHRD
 
+
+          console.log("company", jobs.company_name)
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('searchHRDfix.ejs', { jobs: jobs });
 
@@ -134,20 +135,6 @@ const profil = async (req, res) => {
       await db.query(`UPDATE jobseekers SET name = '${name}', contact_number = '${contact}', address = '${address}' WHERE jobseeker_id = ${req.session.userId}`);
       await db.query(`UPDATE jobseeker_detail SET experience = '${experience}', education = '${education}', exp = '${exp}' WHERE jobseeker_id = ${req.session.userId}`)
       
-      //mengecek apa yang diubah kemudian mengubah data sesuai tabel
-      /*
-      if( query.username != username || query.email != email || query.password != password ){
-        await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
-      }else if( query.name != name || query.contact_number != contact || query.address != address || query.is_female != is_female ){
-        await db.query(`UPDATE jobseekers SET name = ${name}, contact_number = ${contact}, address = ${address}, is_female = ${is_female} WHERE user_id = ${req.session.userId}`);
-      }else if( query.experience != experience || query.education != education || query.exp != exp ){
-        await db.query(`UPDATE jobseeker_detail SET experience = ${experience}, education = ${education}, exp = ${exp} WHERE user_id = ${req.session.userId}`);
-      }
-      */
-      
-
-      let alert = 'Data berhasil diubah!';
-      
 
     }catch(err){
       console.error('Error dalam post profil: ', err);
@@ -170,22 +157,16 @@ const profil = async (req, res) => {
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerja' });
     }
   } else if (req.method==='POST' && req.session.roleHRD) {
-    const { email, name, contact, address, desc } = req.body;
+    const {email, name, contact, address, desc } = req.body; // ambil data dari form
+
+
     try{
-      await db.query(`UPDATE users SET email = ${email} WHERE user_id = ${req.session.userId}`);
-      await db.query(`UPDATE employers SET company_name = '${name}', contact_number = ${contact}, address = '${address}', company_desc = '${desc}' WHERE user_id = ${req.session.userId}`);
+      await db.query(`UPDATE employers SET company_name = '${name}', 
+      contact_number = ${contact}, address = '${address}', 
+      company_desc = '${desc}' WHERE employer_id = ${req.session.userId} ;
       
-      //mengecek apa yang diubah kemudian mengubah data sesuai tabel
-      // const user = await db.query(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
+      UPDATE users SET email = '${email}' WHERE user_id = ${req.session.userId} ;`);
 
-      // if( query.username != username || query.email != email || query.password != password ){
-      //   await db.query(`UPDATE users SET username = ${username}, email = ${email}, password = ${password} WHERE user_id = ${req.session.userId}`);
-      // }else if( query.company_name != name || query.contact_number != contact || query.address != address || query.company_desc != desc ){
-      //   await db.query(`UPDATE employers SET company_name = ${name}, contact_number = ${contact}, address = ${address}, company_desc = ${desc} WHERE user_id = ${req.session.userId}`);
-      // }
-
-      // let alert = 'Data berhasil diubah!';
-      // res.render('profilhrd.ejs', { alert });
 
     }catch(err){
       console.error('Error dalam post profil: ', err);

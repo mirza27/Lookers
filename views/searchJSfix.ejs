@@ -34,7 +34,7 @@
     <!-- ======= Header ======= -->
     <header class="header fixed-top d-flex align-items-center" id="header">
         <div class="d-flex align-items-center justify-content-between">
-            <a class="logo d-flex align-items-center" href="index.html"><img alt="" src="/img/logo.png" />
+            <a class="logo d-flex align-items-center" href="/home"><img alt="" src="/img/logo.png" />
                 <span class="d-none d-lg-block">Lookers</span></a>
             <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
         </div>
@@ -58,14 +58,14 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
                 <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle" href="/profil"><i class="bi bi-search"></i></a>
+                    <a class="nav-link nav-icon search-bar-toggle" href="/home/profile"><i class="bi bi-search"></i></a>
                 </li>
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown"
-                        href="#"><img alt="Profile" class="rounded-circle"
+                        href="/home/profile"><img alt="Profile" class="rounded-circle"
                             src="/img/user-image-with-black-background.png" />
                         <span class="d-none d-md-block ps-2">
-                            <%= jobs.fullName %>
+                            <%= jobs.sessionUser %>
                         </span></a>
                 </li>
                 <!-- End Profile Iamge Icon -->
@@ -85,16 +85,17 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-4">
                                     <div class="careerMeta">
-                                        <% if (job.category_id===1){ %>
+                                        <% if (job.category_id==1){ %>
                                             <span class="careerType">Teacher</span>
-                                            <% }else if (job.category_id===2){ %>
+                                            <% }else if (job.category_id==2){ %>
                                                 <span class="careerType">Engineer</span>
-                                                <% }else if (job.category_id===3){ %>
+                                                <% }else if (job.category_id==3){ %>
                                                     <span class="careerType">Chef</span>
-                                                    <% }else if (job.category_id===4){ %>
+                                                    <% }else if (job.category_id==4){ %>
                                                         <span class="careerType">IT</span>
-                                                        <% }else if (job.category_id===5) %>
+                                                        <% }else if (job.category_id==5) {%>
                                                             <span class="careerType">Accountant</span>
+                                                            <% } %>
                                                             <span class="career__location">
                                                                 <%= job.company_name %>
                                                             </span>
@@ -104,9 +105,10 @@
                                     </h4>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-5">
-                                    <p class="career__desc">Salary:<br>
-                                        <%= job.salary_min %> - <%= job.salary_max %><br>Year of Experience:<%= job.exp
-                                                    %>
+                                    <p class="career__desc">Salary: Rp
+                                        <%= job.salary_min %> - <%= job.salary_max %><br>
+                                        Year of Experience:<%= job.exp%> <br>
+                                        Location : <%= job.location %>
                                     </p>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-3 text-right btn-wrap">
@@ -114,6 +116,10 @@
                                         data-bs-target="#modalDialogScrollable">
                                         More Info
                                     </button>
+                                    <form>
+                                        <input type="hidden" name="job_id" value="<%= job.job_id %>" />
+                                        <button type="submit" class="btn btn-primary">Apply</button>
+                                    </form>
                                     <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-scrollable">
                                             <div class="modal-content">
@@ -133,10 +139,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form>
-                                    <input type="hidden" name="job_id" value="<%= job.job_id %>" />
-                                    <button type="submit" class="btn btn-primary me-4">Apply</button>
-                                </form>
+                                
                             </div>
                         </div>
                         <% }); %>
@@ -148,9 +151,9 @@
     <!-- ======= Footer ======= -->
     <footer class="footer" id="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>D3 B IT</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>LOOKERS</span></strong>. All Rights Reserved
         </div>
-        <div class="credits">Designed by <a href="">LOOKERS</a></div>
+        <div class="credits">Designed by <a href="">D3 B IT</a></div>
     </footer>
     <!-- End Footer -->
     <!-- Vendor JS Files -->
