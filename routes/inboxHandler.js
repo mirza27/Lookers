@@ -48,6 +48,7 @@ const myApply = async (req, res) => {
                 JOIN employers ON employers.employer_id = jobs.employer_id
                            WHERE applications.jobseeker_id = ${id}`;
                 const applicants = await db.query(sql);
+                applicants.sessionUser = req.session.userName;
     
                 res.render('myApply.ejs', { applicants: applicants });
             } catch (err) {
