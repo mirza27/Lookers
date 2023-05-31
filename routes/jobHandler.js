@@ -9,7 +9,10 @@ const addJob = async (req, res) => {
 
     } else {
         if (req.method === 'GET') {
-            res.render(`addJob.ejs`);
+            var company = await db.oneOrNone(`SELECT company_name FROM employers WHERE employer_id = $1`, [req.session.userId]);
+            
+
+            res.render(`addJob.ejs`,{ jobs: company} );
         } else if (req.method === 'POST') {
             const { tittle, category, desc, salary_min, salary_max, location, exp } = req.body;
 
@@ -112,7 +115,7 @@ const acceptApp = async (req, res) => {
         console.log("rej ", sRej);
         
         // apakah lamaran diterima / ditolak
-        if (sAcc){ // jika diterima
+        if (sAcc && parseInt(sAcc)){ // jika diterima
             try{
                 await db.query(`UPDATE applications SET status = 'accepted' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
                 console.log("yang dditerima id :", sAcc);
@@ -121,9 +124,9 @@ const acceptApp = async (req, res) => {
                 res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
             }
 
-        } else if (sRej){ // jika ditolak
+        } else if (sRej && parseInt(sRej)){ // jika ditolak
             try{
-                await db.query(`UPDATE applications SET status = 'rejected' WHERE status = 'waiting' AND application_id = ($1)`,[sAcc])
+                await db.query(`UPDATE applications SET status = 'rejected' WHERE status = 'waiting' AND application_id = ($1)`,[sRej])
                 console.log("yang ditolak id :", sRej);
             }catch (err) {
                 console.error('Error dalam fungsi addApp: ', err);

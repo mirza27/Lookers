@@ -1,179 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-</head>
-<link rel="stylesheet" href="/css/style.css" />
-<!-- Favicons -->
-<link href="/img/favicon.png" rel="icon" />
-<link href="/img/apple-touch-icon.png" rel="apple-touch-icon" />
-
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>ADD JOBS</title>
+	<link href="/img/favicon.png" rel="icon">
+	<link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<link href="https://fonts.gstatic.com" rel="preconnect">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	<link href="/boxicons/css/boxicons.min.css" rel="stylesheet">
+	<link href="/quill/quill.snow.css" rel="stylesheet">
+	<link href="/quill/quill.bubble.css" rel="stylesheet">
+	<link href="/remixicon/remixicon.css" rel="stylesheet">
+	<link href="/simple-datatables/style.css" rel="stylesheet">
+	<link href="/css/addJobs.css" rel="stylesheet">
+</head><!-- Favicons -->
 <!-- Google Fonts -->
-<link href="https://fonts.gstatic.com" rel="preconnect" />
-<link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet" />
-
 <!-- Vendor CSS Files -->
-<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-<link href="/boxicons/css/boxicons.min.css" rel="stylesheet" />
-<link href="/quill/quill.snow.css" rel="stylesheet" />
-<link href="/quill/quill.bubble.css" rel="stylesheet" />
-<link href="/remixicon/remixicon.css" rel="stylesheet" />
-<link href="/simple-datatables/style.css" rel="stylesheet" />
-
 <!-- Template Main CSS File -->
-<link href="/css/style.css" rel="stylesheet" />
-
 <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="/img/logo.png" alt="" />
-                <span class="d-none d-lg-block">NiceAdmin</span>
-            </a>
-        </div>
-        <!-- End Logo -->
-
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="/home/profil">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-                <button type="submit" title="Search">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
-        </div>
-        <!-- End Search Bar -->
-
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle" href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li>
-                <!-- End Search Icon-->
-
-
-
-                <li class="nav-item dropdown pe-3">
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                        <span class="d-none d-md-block ps-2">
-                        </span> </a><!-- End Profile Iamge Icon -->
-
-
-                    <!-- End Profile Dropdown Items -->
-                </li>
-                <!-- End Profile Nav -->
-            </ul>
-        </nav>
-        <!-- End Icons Navigation -->
-    </header>
-    <!-- End Header -->
-        
-    <div style="margin-top: 20px;"></div>
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Add Job</h5>
-
-          <!-- General Form Elements -->
-          <form>
-            <div class="row mb-3">
-              <label for="inputText" class="col-sm-2 col-form-label">Tittle</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="tittle" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Select</label>
-              <div class="col-sm-10">
-                <select class="form-select" aria-label="Select Category" name="category" required>
-                  <option selected>Open this select menu</option>
-                  <option value="1">Teacher</option>
-                  <option value="2">Engineer</option>
-                  <option value="3">Chef</option>
-                  <option value="4">IT</option>
-                  <option value="5">Accountant</option>
-                </select>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" style="height: 100px" name="desc" required></textarea>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputNumber" class="col-sm-2 col-form-label">Salary_min</label>
-              <div class="col-sm-10 d-flex">
-                <input type="number" class="form-control col-sm-2" name="salary_min" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputNumber" class="col-sm-2 col-form-label">Salary_max</label>
-              <div class="col-sm-10">
-                <input type="number" class="form-control col-sm-2" name="salary_max" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Address</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" style="height: 100px" name="address" required></textarea>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="inputNumber" class="col-sm-2 col-form-label">Year of Experience</label>
-              <div class="col-sm-10">
-                <input type="number" class="form-control" name="exp" required>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Submit Button</label>
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Submit Form</button>
-              </div>
-            </div>
-
-          </form><!-- End General Form Elements -->
-
-        </div>
-      </div>
-    
-    <!-- End Add Job Form -->
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </footer>
-    <!-- End Footer -->
+	<!-- ======= Header ======= -->
+  <header class="header fixed-top d-flex align-items-center" id="header">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center" href="index.html"
+        ><img alt="" src="/img/logo.png" />
+        <span class="d-none d-lg-block">Lookers</span></a
+      >
+      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+    </div>
+    <!-- End Logo -->
+    <div class="search-bar">
+       <form
+        action="/home/search"
+        class="search-form d-flex align-items-center"
+        method="POST"
+      >
+        <input
+          name="search"
+          placeholder="search"
+          title="Enter search keyword"
+          type="text"
+        />
+        <button title="search" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+    <!-- End Search Icon-->
+    <!-- End Search Bar -->
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/inbox">Inbox</a>
+    </div>
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/myJobs">My Jobs</a>
+    </div>
+    <div class="job-application-status">
+      <a class="nav-link active" href="/home/addJobs">Add Jobs</a>
+    </div>
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle" href="/home/profile"
+            ><i class="bi bi-search"></i
+          ></a>
+        </li>
+        <li class="nav-item dropdown pe-3">
+          <a
+            class="nav-link nav-profile d-flex align-items-center pe-0"
+            data-bs-toggle="dropdown"
+            href="#"
+            ><img
+              alt="Profile"
+              class="rounded-circle"
+              src="/img/user-image-with-black-background.png"
+            />
+            <span class="d-none d-md-block ps-2"><%= jobs.company_name %></span></a
+          >
+        </li>
+        <!-- End Profile Iamge Icon -->
+        <!-- End Profile Nav -->
+      </ul>
+    </nav>
+    <!-- End Icons Navigation -->
+  </header><!-- End Header -->
+	<div style="margin-top: 20px;"></div>
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">ADD JOBS</h5><!-- General Form Elements -->
+			<form method="POST">
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputText">Tittle</label>
+					<div class="col-sm-10">
+						<input class="form-control" name="tittle" required="" type="text">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">Select</label>
+					<div class="col-sm-10">
+						<select aria-label="Select Category" class="form-select" name="category" required="">
+							<option selected>
+								Open this select menu
+							</option>
+							<option value="1">
+								Teacher
+							</option>
+							<option value="2">
+								Engineer
+							</option>
+							<option value="3">
+								Chef
+							</option>
+							<option value="4">
+								IT
+							</option>
+							<option value="5">
+								Accountant
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputPassword">Description</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" name="desc" required="" style="height: 100px"></textarea>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputNumber">Salary_min</label>
+					<div class="col-sm-10 d-flex">
+						<input class="form-control col-sm-2" name="salary_min" required="" type="number">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputNumber">Salary_max</label>
+					<div class="col-sm-10">
+						<input class="form-control col-sm-2" name="salary_max" required="" type="number">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputPassword">Address</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" name="address" required="" style="height: 100px"></textarea>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="inputNumber">Year of Experience</label>
+					<div class="col-sm-10">
+						<input class="form-control" name="exp" required="" type="number">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">Submit Button</label>
+					<div class="col-sm-10">
+						<button class="btn btn-primary" type="submit">Submit Form</button>
+					</div>
+				</div>
+			</form><!-- End General Form Elements -->
+		</div>
+	</div><!-- End Add Job Form -->
+	<!-- ======= Footer ======= -->
+	<footer class="footer" id="footer">
+		<div class="copyright">
+			&copy; Copyright <strong><span>Lookers</span></strong>. All Rights Reserved
+		</div>
+		<div class="credits">
+			<!-- All the links in the footer should remain intact. -->
+			<!-- You can delete the links only if you purchased the pro version. -->
+			<!-- Licensing information: https://bootstrapmade.com/license/ -->
+			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+			Designed by <a href="https://bootstrapmade.com/">D3 IT B</a>
+		</div>
+	</footer><!-- End Footer -->
+	<!-- Vendor JS Files -->
+	<script src="/apexcharts/apexcharts.min.js">
+	</script> 
+	<script src="/bootstrap/js/bootstrap.bundle.min.js">
+	</script> 
+	<script src="/chart.js/chart.umd.js">
+	</script> 
+	<script src="/echarts/echarts.min.js">
+	</script> 
+	<script src="/quill/quill.min.js">
+	</script> 
+	<script src="/simple-datatables/simple-datatables.js">
+	</script> 
+	<script src="/tinymce/tinymce.min.js">
+	</script> 
+	<script src="/php-email-form/validate.js">
+	</script> <!-- Template Main JS File -->
+	<script src="/js/main.js">
+	</script> 
 </body>
-<!-- Vendor JS Files -->
-<script src="/apexcharts/apexcharts.min.js"></script>
-<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/chart.js/chart.umd.js"></script>
-<script src="/echarts/echarts.min.js"></script>
-<script src="/quill/quill.min.js"></script>
-<script src="/simple-datatables/simple-datatables.js"></script>
-<script src="/tinymce/tinymce.min.js"></script>
-<script src="/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/js/main.js"></script>
-
 </html>

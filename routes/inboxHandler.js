@@ -18,35 +18,19 @@ const inbox = async (req, res) => {
                     JOIN applications ON jobseekers.jobseeker_id = applications.jobseeker_id 
                     JOIN jobs ON applications.job_id = jobs.job_id
                     JOIN employers ON jobs.employer_id = employers.employer_id 
-                    WHERE employers.employer_id = ${req.session.userId} AND applications.status = 'waiting';`);
+                    WHERE employers.employer_id = ${req.session.userId} AND applications.status = 'waiting'`);
                     results.sessionUser = req.session.userName; // menambah data session ke ejs 
                    
+                    var company = await db.oneOrNone(`SELECT company_name FROM employers WHERE employer_id = $1`, [req.session.userId]);
+                    results.company  = company.company_name
+
                     res.render('inbox.ejs', { applicants: results });
         
                 } catch (err) {
                     console.error('Error dalam melakukan query: ', err);
                     res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
                 }
-            } else if (req.method === 'POST' && req.session.roleHRD) {
-                const { sAcc, sRej } = req.body;
-                
-
-                // menerima / menolak lamaran
-                if (sAcc && parseInt(sAcc)) {
-                    const userId = parseInt(sAcc);
-                    // Perform the database update code to set Accept
-                    db.query(`UPDATE applications SET status = "accepted" WHERE jobseeker_id = ${userId}`);
-
-                    res.redirect("/home/inbox") // load lagi halaman
-                }
-                if (sRej && parseInt(sRej)) {
-                    const userId = parseInt(sRej);
-                    // Perform the database update code to set Reject
-                    db.query(`UPDATE applications SET status = "rejected" WHERE jobseeker_id = ${userId}`);
-
-                    res.redirect("/home/inbox")  // load lagi halaman
-                }
-        }
+            }
 }
 }
 
