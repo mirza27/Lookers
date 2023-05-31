@@ -48,8 +48,8 @@ app.post("/home", homeHandler.home);
 
 app.post("/home/search", homeHandler.home); // menampilkan jobs tersedia
 
-app.get("/profil", homeHandler.profil); // edit profile js /hrd
-app.post("/profil", homeHandler.profil);
+app.get("/home/profile", homeHandler.profil); // edit profile js /hrd
+app.post("/home/profile", homeHandler.profil);
 
 app.get("/home/inbox", inboxHandler.inbox); // inbox hrd / lamaran yang diterima hrd
 app.post("/home/inbox", inboxHandler.inbox);

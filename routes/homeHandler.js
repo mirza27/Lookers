@@ -103,7 +103,9 @@ const home = async (req, res) => {
 
 
 const profil = async (req, res) => {
-
+  if (req.method === 'GET' && !req.session.userId) {
+    return res.redirect('/login'); // jika belum login, redirect ke halaman login
+  }else{
     //-------------- JIKA SEBAGAI JS--------------
     if (req.method === 'GET' && !req.session.roleHRD) {
     try {
@@ -170,7 +172,7 @@ const profil = async (req, res) => {
     }
   }
 }
-
+}
 module.exports = {
   home,
   profil

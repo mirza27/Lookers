@@ -47,6 +47,10 @@ const myJobs = async (req, res) => {
                     FROM categories
                     JOIN jobs ON categories.category_id = jobs.category_id
                     WHERE jobs.employer_id = ${req.session.userId};`);
+
+                    var company = await db.oneOrNone(`SELECT company_name FROM employers WHERE employer_id = $1`, [req.session.userId]);
+                    jobs.company  = company.company_name
+
                     res.render(`myJobs.ejs`, { jobs: jobs });
 
                 }catch(err){
