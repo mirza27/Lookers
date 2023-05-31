@@ -111,9 +111,14 @@ const profil = async (req, res) => {
     if (req.method === 'GET' && !req.session.roleHRD) {
     try {
       // Menjalankan query untuk mendapatkan daftar pelamar
-      const query = await db.oneOrNone(`SELECT * FROM users JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id WHERE jobseeker_id = ${req.session.userId}`);
+      const query = await db.oneOrNone(`SELECT * FROM users 
+      JOIN jobseekers ON users.user_id = jobseekers.jobseeker_id 
+      JOIN jobseeker_detail ON jobseekers.jobseeker_id = jobseeker_detail.jobseeker_id 
+      WHERE jobseekers.jobseeker_id = ${req.session.userId}`);
 
-      res.render('profiljs.ejs', { query });
+      query.sessionUser = req.session.userName;
+
+      res.render('profiljs.ejs', { user : query });
     } catch (err) {
       console.error('Error dalam get profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pelamar' });
@@ -139,6 +144,7 @@ const profil = async (req, res) => {
       
       let alert = 'Data berhasil diubah!';
       res.render('profiljs.ejs', { alert });
+
     }catch(err){
       console.error('Error dalam post profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pelamar' });
@@ -147,8 +153,12 @@ const profil = async (req, res) => {
     //-------------- JIKA SEBAGAI HRD--------------
   } else if (req.method === 'GET' && req.session.roleHRD) {
     try{
-      const user = await db.oneOrNone(`SELECT * FROM users JOIN employers ON users.user_id = employers.employer_id WHERE employer_id = ${req.session.userId}`);
+      const user = await db.oneOrNone(`SELECT * FROM users 
+      JOIN employers ON users.user_id = employers.employer_id 
+      WHERE employer_id = ${req.session.userId}`);
+
       res.render('profilhrd.ejs', {user:user});
+
     }catch(err){
       console.error('Error dalam get profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data pekerja' });
@@ -167,6 +177,7 @@ const profil = async (req, res) => {
 
       let alert = 'Data berhasil diubah!';
       res.render('profilhrd.ejs', { alert });
+
     }catch(err){
       console.error('Error dalam post profil: ', err);
       res.status(500).json({ error: 'Terjadi kesalahan saat mengubah data pekerja' });
