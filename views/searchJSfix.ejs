@@ -24,7 +24,7 @@
     <link href="/quill/quill.bubble.css" rel="stylesheet" />
     <link href="/remixicon/remixicon.css" rel="stylesheet" />
     <link href="/simple-datatables/style.css" rel="stylesheet" />
-    <link href="/css/searchfix.css" rel="stylesheet" />
+    <link href="/css/searchjs.css" rel="stylesheet" />
 </head><!-- Favicons -->
 <!-- Google Fonts -->
 <!-- Vendor CSS Files -->
@@ -35,13 +35,13 @@
     <header class="header fixed-top d-flex align-items-center" id="header">
         <div class="d-flex align-items-center justify-content-between">
             <a class="logo d-flex align-items-center" href="index.html"><img alt="" src="/img/logo.png" />
-                <span class="d-none d-lg-block">NiceAdmin</span></a>
+                <span class="d-none d-lg-block">Lookers</span></a>
             <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
         </div>
         <!-- End Logo -->
         <div class="search-bar">
-            <form action="#" class="search-form d-flex align-items-center" method="post">
-                <input name="query" placeholder="Search" title="Enter search keyword" type="text" />
+            <form action="/home/search" class="search-form d-flex align-items-center" method="POST">
+                <input name="query" placeholder="search" title="Enter search keyword" type="text" />
                 <button title="Search" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
@@ -50,12 +50,11 @@
         <!-- End Search Icon-->
         <!-- End Search Bar -->
         <div class="job-application-status">
-            <a class="nav-link active" href="/home/MyApply">Inbox</a>
+            <a class="nav-link active" href="/home/MyApply">Status Lamaran</a>
         </div>
         <div class="job-application-status">
-            <a class="nav-link active" href="/home/search">My Jobs</a>
+            <a class="nav-link active" href="/home/search">All Jobs</a>
         </div>
-        
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
                 <li class="nav-item d-block d-lg-none">
@@ -65,7 +64,9 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown"
                         href="#"><img alt="Profile" class="rounded-circle"
                             src="/img/user-image-with-black-background.png" />
-                        <span class="d-none d-md-block ps-2">My Profile</span></a>
+                        <span class="d-none d-md-block ps-2">
+                            <%= jobs.fullName %>
+                        </span></a>
                 </li>
                 <!-- End Profile Iamge Icon -->
                 <!-- End Profile Nav -->
@@ -74,43 +75,50 @@
         <!-- End Icons Navigation -->
     </header>
     <!-- End Header -->
-    
-        <div class="container" style="padding-bottom: 10px; margin-top: 70px;">
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="careersContainer">
-                        <% jobs.forEach(function(job){ %>
-                            <div class="careerItem" style="padding-right: 250px;padding-left: 100px;">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-4">
-                                        <div class="careerMeta">
-                                            <% if (job.category_id===1){ %>
+
+    <div class="container" style="padding-bottom: 10px; margin-top: 70px;">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="careersContainer">
+                    <% jobs.forEach(function(job){ %>
+                        <div class="careerItem" style="padding-right: 250px;padding-left: 100px;">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-4">
+                                    <div class="careerMeta">
+                                        <% if (job.category_id===1){ %>
                                             <span class="careerType">Teacher</span>
                                             <% }else if (job.category_id===2){ %>
-                                            <span class="careerType">Engineer</span>
-                                            <% }else if (job.category_id===3){ %>
-                                            <span class="careerType">Chef</span>
-                                            <% }else if (job.category_id===4){ %>
-                                            <span class="careerType">IT</span>
-                                            <% }else if (job.category_id===5) %>
-                                            <span class="careerType">Accountant</span>
-                                            <span class="career__location"><%= job.company_name %></span>
-                                        </div>
-                                        <h4 class="career__title" style="color: black;"><%= job.tittle %></h4>
+                                                <span class="careerType">Engineer</span>
+                                                <% }else if (job.category_id===3){ %>
+                                                    <span class="careerType">Chef</span>
+                                                    <% }else if (job.category_id===4){ %>
+                                                        <span class="careerType">IT</span>
+                                                        <% }else if (job.category_id===5) %>
+                                                            <span class="careerType">Accountant</span>
+                                                            <span class="career__location">
+                                                                <%= job.company_name %>
+                                                            </span>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-5">
-                                        <p class="career__desc">Salary:<br><%= job.salary_min %> - <%= job.salary_max %><br>Year of Experience:<br><%= job.exp %></p>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-3 text-right btn-wrap">
-                                        <a href="#" class="btn btn__primary btn__bordered">More Info</a>
-                                    </div>
+                                    <h4 class="career__title" style="color: black;">
+                                        <%= job.tittle %>
+                                    </h4>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-5">
+                                    <p class="career__desc">Salary:<br>
+                                        <%= job.salary_min %> - <%= job.salary_max %><br>Year of Experience:<br>
+                                                <%= job.exp %>
+                                    </p>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-3 text-right btn-wrap">
+                                    <a href="#" class="btn btn__primary btn__bordered">More Info</a>
                                 </div>
                             </div>
+                        </div>
                         <% }); %>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </section>
     <!-- ======= Footer ======= -->
     <footer class="footer" id="footer">
