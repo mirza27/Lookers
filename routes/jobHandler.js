@@ -19,7 +19,8 @@ const addJob = async (req, res) => {
             try {
                 // query membuat job baru
                 const is_done = false;
-                await db.query(`INSERT INTO jobs VALUES (${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${address}', ${exp}, '${is_done}')`);
+                await db.query(`INSERT INTO jobs (category_id, employer_id, tittle, "desc", salary_min, salary_max, location, exp, is_done) 
+                VALUES (${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${address}', ${exp}, '${is_done}')`);
 
                 res.redirect('/home/myJobs'); // direct ke myjobs
 
