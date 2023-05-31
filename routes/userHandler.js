@@ -64,16 +64,17 @@ const userRegister = async (req, res) => {
     const cek = await db.oneOrNone('SELECT * FROM users WHERE username = $1', [usernameR]);
     if (cek) {
       //Mengirim alert jika username sudah digunakan
-      let alert = 'Username Sudah Digunakan!';
+      //let alert = 'Username Sudah Digunakan!';
       res.render('login.ejs', { alert });
     } else {
       try {
         const hashedPassword = await bcrypt.hash(passwordR, 10);
         // Tambahkan user baru ke database
-        await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [usernameR, emailR, hashedPassword, role]);
-        const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [usernameR]);
+        await db.query(`INSERT INTO users(username, email, password, is_employers) VALUES ('${usernameR}', '${emailR}', '${hashedPassword}', '${role}')`);
+        const uresult = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [usernameR]);
+        var id = parseInt(uresult.user_id);
 
-        
+        console.log(id);
 
       } catch (err) {
         console.log(err);
@@ -83,7 +84,8 @@ const userRegister = async (req, res) => {
 
       }
       // Lanjut ke data regis
-      var id = parseInt(user_id.user_id); // id sebagai param
+      // var id = parseInt(uresult.user_id); // id sebagai param
+
 
         // generate url dengan param
         if (role == true) { // jika sebagai hrd
