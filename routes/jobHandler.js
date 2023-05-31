@@ -14,12 +14,12 @@ const addJob = async (req, res) => {
 
             res.render(`addJob.ejs`,{ jobs: company} );
         } else if (req.method === 'POST') {
-            const { tittle, category, desc, salary_min, salary_max, location, exp } = req.body;
+            const { tittle, category, desc, salary_min, salary_max,  address, exp } = req.body;
 
             try {
                 // query membuat job baru
                 const is_done = false;
-                await db.query(`INSERT INTO jobs VALUES (${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${location}', ${exp}, '${is_done}')`);
+                await db.query(`INSERT INTO jobs VALUES (${category}, ${req.session.userId}, '${tittle}', '${desc}', ${salary_min}, ${salary_max}, '${address}', ${exp}, '${is_done}')`);
 
                 res.redirect('/home/myJobs'); // direct ke myjobs
 
