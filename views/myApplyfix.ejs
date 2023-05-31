@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile</title>
 </head>
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/myApply.css" />
 <!-- Favicons -->
 <link href="/img/favicon.png" rel="icon" />
 <link href="/img/apple-touch-icon.png" rel="apple-touch-icon" />
@@ -27,73 +27,50 @@
 <link href="/remixicon/remixicon.css" rel="stylesheet" />
 <link href="/simple-datatables/style.css" rel="stylesheet" />
 
-<!-- Template Main CSS File -->
-<link href="/css/style.css" rel="stylesheet" />
 <body>
   <!-- ======= Header ======= -->
   <header class="header fixed-top d-flex align-items-center" id="header">
     <div class="d-flex align-items-center justify-content-between">
-      <a class="logo d-flex align-items-center" href="index.html"
-        ><img alt="" src="/img/logo.png" />
-        <span class="d-none d-lg-block">NiceAdmin</span></a
-      >
-      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+        <a class="logo d-flex align-items-center" href="index.html"><img alt="" src="/img/logo.png" />
+            <span class="d-none d-lg-block">Lookers</span></a>
+        <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
     </div>
     <!-- End Logo -->
     <div class="search-bar">
-      <form
-        action="#"
-        class="search-form d-flex align-items-center"
-        method="post"
-      >
-        <input
-          name="query"
-          placeholder="Search"
-          title="Enter search keyword"
-          type="text"
-        />
-        <button title="Search" type="submit">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
+        <form action="/home/search" class="search-form d-flex align-items-center" method="POST">
+            <input name="query" placeholder="search" title="Enter search keyword" type="text" />
+            <button title="Search" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
     </div>
     <!-- End Search Icon-->
     <!-- End Search Bar -->
     <div class="job-application-status">
-      <a class="nav-link active" href="/home/inbox">Inbox</a>
+        <a class="nav-link active" href="/home/MyApply">Status Lamaran</a>
     </div>
     <div class="job-application-status">
-      <a class="nav-link active" href="/home/myJobs">My Jobs</a>
-    </div>
-    <div class="job-application-status">
-      <a class="nav-link active" href="/home/addJobs">Add Jobs</a>
+        <a class="nav-link active" href="/home/search">All Jobs</a>
     </div>
     <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle" href="/profil"
-            ><i class="bi bi-search"></i
-          ></a>
-        </li>
-        <li class="nav-item dropdown pe-3">
-          <a
-            class="nav-link nav-profile d-flex align-items-center pe-0"
-            data-bs-toggle="dropdown"
-            href="#"
-            ><img
-              alt="Profile"
-              class="rounded-circle"
-              src="/img/user-image-with-black-background.png"
-            />
-            <span class="d-none d-md-block ps-2">My Profile</span></a
-          >
-        </li>
-        <!-- End Profile Iamge Icon -->
-        <!-- End Profile Nav -->
-      </ul>
+        <ul class="d-flex align-items-center">
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle" href="/profil"><i class="bi bi-search"></i></a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown"
+                    href="#"><img alt="Profile" class="rounded-circle"
+                        src="/img/user-image-with-black-background.png" />
+                    <span class="d-none d-md-block ps-2">
+                        <%= jobs.fullName %>
+                    </span></a>
+            </li>
+            <!-- End Profile Iamge Icon -->
+            <!-- End Profile Nav -->
+        </ul>
     </nav>
     <!-- End Icons Navigation -->
-  </header>
+</header>
   <!-- End Header -->
 
   <div style="margin-top: 40px;"></div>
