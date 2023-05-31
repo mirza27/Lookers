@@ -71,11 +71,14 @@ const delApp = async (req, res) => {
             console.error('Error dalam fungsi addApp: ', err);
             res.status(500).json({ error: 'Terjadi kesalahan saat menghapus lamaran' });
         }
+
+        res.redirect("/home/myApply") // load ulang halaman
     }
 }
 
 
 module.exports = {
     inbox,
-    myApply
+    myApply,
+    delApp
 }

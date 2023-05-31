@@ -100,6 +100,7 @@
               <th scope="col">Job Title</th>
               <th scope="col">Company Name</th>
               <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -121,6 +122,14 @@
                     <% }else if(applicant.status==='waiting'){ %>
                     <td><span class="badge bg-primary">Waiting</span></td>
                     <% } %>
+                    <td>
+                      <div class="col mb-3">
+                      <form action="/home/deleteApp"  method="POST">
+                        <input type="hidden" name="app_id" value=<%= applicant.application_id %>>
+                      <button class="btn btn-danger">Delete</button>
+                      </form>
+                      </div>
+                    </td>
                   </tr>
                   <% });} %>
           </tbody>
