@@ -6,7 +6,7 @@ app.set('view engine', 'ejs');
 
 // HALAMAN HOME
 const home = async (req, res) => {
-  const searchTerm = req.body.search; // Kata yang diinputkan
+  const searchTerm = req.body.query; // Kata yang diinputkan
   if (req.method === 'GET' && !req.session.userId) {
   return res.redirect('/login'); // jika belum login, redirect ke halaman login
 
@@ -45,7 +45,8 @@ const home = async (req, res) => {
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
         
-
+          console.log(searchTerm);
+          console.log(jobs);
        
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('searchJSfix.ejs', { jobs: jobs });
@@ -89,7 +90,7 @@ const home = async (req, res) => {
           WHERE is_done = false AND (tittle ILIKE '%${searchTerm}%' OR jobs.location ILIKE '%${searchTerm}%'); 
           `);
           jobs.isHrd = req.session.roleHRD
-        
+
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
         res.render('searchHRDfix.ejs', { jobs: jobs });
 
