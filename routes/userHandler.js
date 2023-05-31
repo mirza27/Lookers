@@ -65,7 +65,7 @@ const userRegister = async (req, res) => {
     if (cek) {
       //Mengirim alert jika username sudah digunakan
       //let alert = 'Username Sudah Digunakan!';
-      res.render('login.ejs', { alert });
+      res.render('login.ejs');
     } else {
       try {
         const hashedPassword = await bcrypt.hash(passwordR, 10);
