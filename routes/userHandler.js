@@ -74,8 +74,6 @@ const userRegister = async (req, res) => {
         const uresult = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [usernameR]);
         var id = parseInt(uresult.user_id);
 
-        console.log(id);
-
       } catch (err) {
         console.log(err);
         return res.send(`
@@ -88,7 +86,7 @@ const userRegister = async (req, res) => {
 
 
         // generate url dengan param
-        if (role == true) { // jika sebagai hrd
+        if (role == 'true') { // jika sebagai hrd
           var pathredirect = '/register/hrd/' + id;
         } else { // jika sebagai jobseeker
           var pathredirect = '/register/js/' + id;
