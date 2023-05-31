@@ -73,7 +73,17 @@ const userRegister = async (req, res) => {
         await db.query('INSERT INTO users(username, email, password, is_employers) VALUES ($1, $2, $3, $4)', [usernameR, emailR, hashedPassword, role]);
         const user_id = await db.oneOrNone('SELECT user_id FROM users WHERE username = $1', [usernameR]);
 
-        var id = parseInt(user_id.user_id); // id sebagai param
+        
+
+      } catch (err) {
+        console.log(err);
+        return res.send(`
+                    <script>alert('Terjadi kesalahan saat melakukan register.');</script>
+                  `);
+
+      }
+      // Lanjut ke data regis
+      var id = parseInt(user_id.user_id); // id sebagai param
 
         // generate url dengan param
         if (role == true) { // jika sebagai hrd
@@ -83,13 +93,6 @@ const userRegister = async (req, res) => {
         }
 
         res.redirect(pathredirect);
-
-      } catch (err) {
-        console.log(err);
-        return res.send(`
-                    <script>alert('Terjadi kesalahan saat melakukan register.');</script>
-                  `);
-      }
     }
   };
 }
