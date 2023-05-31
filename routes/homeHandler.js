@@ -48,7 +48,7 @@ const home = async (req, res) => {
 
        
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('searchJS.ejs', { jobs: jobs });
+        res.render('searchJSfix.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
@@ -91,7 +91,7 @@ const home = async (req, res) => {
           jobs.isHrd = req.session.roleHRD
         
         // Render file EJS 'cards.ejs' dan kirimkan data dari query
-        res.render('searchHRD.ejs', { jobs: jobs });
+        res.render('searchHRDfix.ejs', { jobs: jobs });
 
       } catch (err) {
         console.error('Error dalam melakukan query: ', err);
