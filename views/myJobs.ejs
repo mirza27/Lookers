@@ -111,9 +111,9 @@
                             <th scope="col">Name</th>
                             <th scope="col">Salary</th>
                             <th scope="col">Experience</th>
-                            <th scope="col">Location</th>
                             <th scope="col">Descriprion</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,9 +133,6 @@
                                         </td>
                                         <td>
                                             <%= job.exp %>
-                                        </td>
-                                        <td>
-                                            <%= job.location %>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -160,7 +157,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="col mb-3">
+                                            <div class="col mb-6">
                                                 <form method="POST" action="/home/myJobs">
                                                     <% if (!job.is_done) { %>
                                                         <button class="btn btn-primary" name="job_id"
@@ -172,6 +169,15 @@
                                                         <% } %>
                                                 </form>
                                             </div>
+                                        </td>
+                                        <td>
+                                          <div class="col mb-4">
+                                            <form method="POST" action="/home/delJobs">
+                                            <button class="btn btn-danger" name="job_id" value="<%= job.job_id %>" type="submit">
+                                              Delete
+                                            </button>
+                                          </form>
+                                          </div>
                                         </td>
 
                                     </tr>

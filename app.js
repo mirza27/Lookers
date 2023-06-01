@@ -57,7 +57,10 @@ app.post("/home/inbox", inboxHandler.inbox);
 app.get("/home/myApply", inboxHandler.myApply); // daftar lamaran (js)
 
 app.get("/home/myJobs", jobHandler.myJobs); // loker yang dibuat hrd
-app.post("/home/myJobs", jobHandler.myJobs);
+
+app.post("/home/myJobs", jobHandler.myJobs); // mengdit deactvate / activate
+
+app.post("/home/delJobs", jobHandler.delJob); // menghapus loker
 
 app.get("/home/addJobs", jobHandler.addJob); // menambah loker
 app.post("/home/addJobs", jobHandler.addJob);

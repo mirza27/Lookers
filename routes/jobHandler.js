@@ -87,6 +87,28 @@ const myJobs = async (req, res) => {
         }
 }
 
+// MENGHAPUS LOKER / JOBS
+const delJob = async function (req, res) {
+    if (req.method === 'POST' && !req.session.userId) {
+        return res.redirect('/login'); // jika belum login, redirect ke halaman login
+    }else{
+        const { job_id } = req.body; // mengambil job id yang dihapus dari form
+
+        try {
+            await db.query(`DELETE FROM applications WHERE job_id = ($1) ;
+            DELETE FROM jobs WHERE job_id = ($2) ;`, [ job_id, job_id ]); 
+
+            // langsung lihat lamaran
+            res.redirect('/home/myJobs');
+
+        } catch (err) {
+            console.error('Error dalam fungsi addApp: ', err);
+            res.status(500).json({ error: 'Terjadi kesalahan saat melamar job' });
+        }
+    }
+}
+
+
 // MEMBUAT LAMARAN / KLIK APPLY
 const addApp = async (req, res) => {
     if (req.method === 'POST' && !req.session.userId) {
@@ -147,5 +169,6 @@ module.exports = {
     addJob,
     addApp,
     myJobs,
-    acceptApp
+    acceptApp,
+    delJob
 }
