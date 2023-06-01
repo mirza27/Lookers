@@ -52,7 +52,10 @@
             <a class="nav-link active" href="/home/MyApply">Status Lamaran</a>
         </div>
         <div class="job-application-status">
-            <a class="nav-link active" href="/home/search">All Jobs</a>
+            <form method="POST" action="/home/search">
+                <input type="hidden" name="query" value="">
+                <button style="background-color: transparent; border: none;" type="submit"><a class="nav-link active"> All Jobs</a></button>
+              </form>
         </div>
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
