@@ -19,25 +19,25 @@ https://drive.google.com/file/d/1AUfaaxhMyc6k5UYNUe6gbjkvQL6UFDk6/view?usp=shari
 
 ## Screenshots
 login page as jobseeker or HRD
-![Login](https://github.com/mirza27/Lookers/blob/main/asset/acceptapplicant.png)
+![Login](https://github.com/mirza27/Lookers/blob/main/asset/login.png)
 
 homepage
-![hompage](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![hompage](https://github.com/mirza27/Lookers/blob/main/asset/homepage.png)
 
 you can search jobs with the keyword
-![findjobs](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![findjobs](https://github.com/mirza27/Lookers/blob/main/asset/findjobs.png)
 
 the jobs you applied
-![myapplicant](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![myapplicant](https://github.com/mirza27/Lookers/blob/main/asset/myapplicant.png)
 
 you make a job as HRD
-![addjob](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![addjob](https://github.com/mirza27/Lookers/blob/main/asset/addjob.png)
 
 the job you made
-![myjobs](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![myjobs](https://github.com/mirza27/Lookers/blob/main/asset/myjobs.png)
 
 you can accept or decline someone applicants
-![acceptapplicants](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![acceptapplicants](https://github.com/mirza27/Lookers/blob/main/asset/acceptapplicant.png)
 
 
 ## Installation
