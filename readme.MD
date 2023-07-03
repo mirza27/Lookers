@@ -19,7 +19,7 @@ https://drive.google.com/file/d/1AUfaaxhMyc6k5UYNUe6gbjkvQL6UFDk6/view?usp=shari
 
 ## Screenshots
 login page as jobseeker or HRD
-![Login](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
+![Login](https://github.com/mirza27/Lookers/blob/main/asset/acceptapplicant.png)
 
 homepage
 ![hompage](https://drive.google.com/file/d/1ccrO_2VFLSR6v-aSbEXmcgSQYiGMv6RY/view?usp=sharing)
